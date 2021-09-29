@@ -1,0 +1,33 @@
+{
+  "name": "start",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
+    "commit": "git-cz",
+    "start": "yarn workspace workbench start"
+  },
+  "dependencies": {
+    "vue": "^3.2.19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-legacy": "^1.5.3",
+    "@vitejs/plugin-vue-jsx": "^1.1.8",
+    "commitizen": "^4.2.4",
+    "lerna": "^4.0.0",
+    "typescript": "^4.4.3",
+    "vite": "^2.5.10",
+    "vue-tsc": "^0.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "repository": "git@github.com:vueSetup/start.git",
+  "license": "MIT"
+}
