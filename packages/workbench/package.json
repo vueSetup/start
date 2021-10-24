@@ -1,9 +1,0 @@
-{
-  "name": "workbench",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "vite",
-    "preview": "vite preview",
-    "build": "vue-tsc --noEmit && vite build"
-  }
-}
