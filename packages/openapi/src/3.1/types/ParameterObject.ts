@@ -1,4 +1,5 @@
 import { ExampleObject } from "./ExampleObject"
+import { MediaTypeObject } from "./MediaTypeObject"
 import { ReferenceObject } from "./ReferenceObject"
 import { SchemaObject } from "./SchemaObject"
 
@@ -65,6 +66,8 @@ export interface ParameterObject {
     /**
      * Describes how the parameter value will be serialized depending on the type of the parameter value. 
      * Default values (based on value of in): for query - form for path - simple for header - simple for cookie - form.
+     * 
+     * https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#style-values
      */
     style?: string
     /**
@@ -81,7 +84,7 @@ export interface ParameterObject {
     /**
      * The schema defining the type used for the parameter.
      */
-    schema?: SchemaObject 
+    schema?: SchemaObject
     /**
      * Example of the parameter's potential value. 
      * The example SHOULD match the specified schema and encoding properties if present. 
@@ -89,7 +92,7 @@ export interface ParameterObject {
      * Furthermore, if referencing a `schema` that contains an example, the `example` value SHALL override the example provided by the schema. 
      * To represent examples of media types that cannot naturally be represented in JSON or YAML, a string value can contain the example with escaping where necessary.
      */
-    example: any
+    example?: any
     /**
      * Example of the parameter's potential value. 
      * The example SHOULD match the specified schema and encoding properties if present. 
@@ -97,10 +100,11 @@ export interface ParameterObject {
      * Furthermore, if referencing a schema that contains an example, the example value SHALL override the example provided by the schema. 
      * To represent examples of media types that cannot naturally be represented in JSON or YAML, a string value can contain the example with escaping where necessary.
      */
-    examples?: { [example: string]: ExampleObject | ReferenceObject }
+    examples?: { [example: string]: ExampleObject | ReferenceObject },
     /**
      * A map containing the representations for the parameter. 
      * The key is the media type and the value describes it.
      * The map MUST only contain one entry.
      */
+    content?: { [name: string]: MediaTypeObject }
 }

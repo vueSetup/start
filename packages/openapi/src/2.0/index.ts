@@ -1,0 +1,1 @@
+export { default as Swagger } from './Schema'

@@ -39,7 +39,7 @@ export interface OpenAPIObject extends ISpecificationExtension {
     /**
      * The available paths and operations for the API.
      */
-    paths: PathsObject
+    paths?: PathsObject
     /**
      * The incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. 
      * Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. 

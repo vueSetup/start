@@ -33,31 +33,30 @@ export interface SwaggerObject extends IPatternedObjects {
      * It MAY include a port. If the host is not included, the host serving the documentation is to be used (including the port). 
      * The host does not support path templating.
      */
-    host: string,
+    host?: string,
     /**
      * The base path on which the API is served, which is relative to the host. 
      * If it is not included, the API is served directly under the host. 
      * The value MUST start with a leading slash (/). The basePath does not support path templating.
      */
-    basePath: string,
+    basePath?: string,
     /**
-     * The transfer protocol of the API. Values MUST be from the list: 
-     * `"http"`, `"https"`, `"ws"`, `"wss"`. If the `schemes` is not included, 
-     * the default scheme to be used is the one used to access the Swagger definition itself.
+     * The transfer protocol of the API. Values MUST be from the list: `"http"`, `"https"`, `"ws"`, `"wss"`. 
+     * If the `schemes` is not included, the default scheme to be used is the one used to access the Swagger definition itself.
      */
-    schemes: string[],
+    schemes?: string[],
     /**
      * A list of MIME types the APIs can consume. 
      * This is global to all APIs but can be overridden on specific API calls. 
      * Value MUST be as described under Mime Types.
      */
-    consumes: string[],
+    consumes?: string[],
     /**
      * A list of MIME types the APIs can produce. 
      * This is global to all APIs but can be overridden on specific API calls. 
      * Value MUST be as described under Mime Types.
      */
-    produces: string[],
+    produces?: string[],
     /**
      * Required. 
      * The available paths and operations for the API.
@@ -66,27 +65,27 @@ export interface SwaggerObject extends IPatternedObjects {
     /**
      * An object to hold data types produced and consumed by operations.
      */
-    definitions: DefinitionsObject,
+    definitions?: DefinitionsObject,
     /**
      * An object to hold parameters that can be used across operations. 
      * This property does not define global parameters for all operations.
      */
-    parameters: ParametersDefinitionsObject,
+    parameters?: ParametersDefinitionsObject,
     /**
      * An object to hold responses that can be used across operations. 
      * This property does not define global responses for all operations.
      */
-    responses: ResponsesDefinitionsObject,
+    responses?: ResponsesDefinitionsObject,
     /**
      * Security scheme definitions that can be used across the specification.
      */
-    securityDefinitions: SecurityDefinitionsObject,
+    securityDefinitions?: SecurityDefinitionsObject,
     /**
      * A declaration of which security schemes are applied for the API as a whole. 
      * The list of values describes alternative security schemes that can be used (that is, there is a logical OR between the security requirements). 
      * Individual operations can override this definition.
      */
-    security: SecurityRequirementObject[],
+    security?: SecurityRequirementObject[],
     /**
      * A list of tags used by the specification with additional metadata. 
      * The order of the tags can be used to reflect on their order by the parsing tools. 
@@ -94,9 +93,9 @@ export interface SwaggerObject extends IPatternedObjects {
      * The tags that are not declared may be organized randomly or based on the tools' logic. 
      * Each tag name in the list MUST be unique.
      */
-    tags: TagObject[],
+    tags?: TagObject[],
     /**
      * Additional external documentation.
      */
-    externalDocs: ExternalDocumentationObject
+    externalDocs?: ExternalDocumentationObject
 }

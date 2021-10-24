@@ -5,6 +5,7 @@ import { XMLObject } from "./XMLObject"
 import { ReferenceObject } from "./ReferenceObject"
 
 /**
+ * TODO :: Schema Object
  * The Schema Object allows the definition of input and output data types. 
  * These types can be objects, but also primitives and arrays. 
  * This object is a superset of the JSON Schema Specification Draft 2020-12.
