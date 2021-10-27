@@ -9,6 +9,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "commit": "git-cz",
+    "babel": "yarn workspace code babel",
     "start": "yarn workspace playground start"
   },
   "dependencies": {
