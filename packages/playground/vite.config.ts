@@ -2,11 +2,11 @@ import { loadEnv, searchForWorkspaceRoot, ConfigEnv, UserConfig } from 'vite'
 import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { join } from 'path'
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfig => {
-  const root = process.cwd()
-  const env = loadEnv(mode, root)
+  const env = loadEnv(mode, process.cwd())
 
   return {
     base: env.VITE_BASE_URL,
@@ -14,6 +14,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       'process.env.BASE_URL': JSON.stringify(env.VITE_BASE_URL)
     },
     plugins: [vue(), vueJsx()],
+    resolve: {
+      alias: {
+        '@': join(__dirname, './src'),
+        'jsesc': join(__dirname, './src/shim/jsesc'),
+      }
+    },
     server: {
       fs: {
         allow: [
