@@ -49,7 +49,7 @@ export default defineComponent({
         )
 
         return () => (
-            <Menu mode="inline" theme="dark">
+            <Menu mode="inline" theme="dark" style={{ height: '100%' }}>
                 {state.menus.map(({ key, title, children }) => (
                     <SubMenu key={key} title={title}>
                         {children.map(({ key, title }) => (

@@ -9,14 +9,20 @@ export default defineComponent({
     setup() {
         return () => (
             <Layout>
-                <LayoutHeader>header</LayoutHeader>
-                <LayoutSider>
-                    <BaseMenu />
-                </LayoutSider>
-                <LayoutContent>
-                    <RouterView />
-                </LayoutContent>
-                <LayoutFooter>right sidebar</LayoutFooter>
+                <LayoutHeader style={{ height: '48px' }}>Header</LayoutHeader>
+                <Layout style={{ minHeight: 'calc(100vh - 64px)', paddingTop: '6px' }}>
+                    <LayoutSider
+                        style={{ width: '200px' }}
+                    >
+                        <BaseMenu />
+                    </LayoutSider>
+                    <Layout style={{ margin: "0 18px" }}>
+                        <LayoutContent>
+                            <RouterView />
+                        </LayoutContent>
+                        <LayoutFooter>Footer</LayoutFooter>
+                    </Layout>
+                </Layout>
             </Layout>
         )
     }
