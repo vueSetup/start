@@ -9,6 +9,9 @@
         "useDefineForClassFields": true,
         "sourceMap": true,
         "resolveJsonModule": true,
-        "lib": ["esnext", "dom"]
+        "lib": ["esnext", "dom"],
+        "paths": {
+            "@lola/openapi": ["./packages/openapi/src/index.ts"]
+        }
     }
 }

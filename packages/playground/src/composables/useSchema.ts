@@ -1,5 +1,5 @@
 import { ref, reactive, watchEffect, toRefs, Ref } from "vue"
-import { Swagger } from "@run/schema"
+import { Swagger } from "@lola/openapi"
 import request from "../utils/request"
 
 export const useSchema = (api: Ref<string> = ref("/api/v2/api-docs")) => {

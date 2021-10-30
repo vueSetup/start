@@ -1,0 +1,14 @@
+import { Module } from 'vuex'
+import { state } from './state'
+import { mutations } from './mutations'
+import { actions } from './actions'
+import { getters } from './getters'
+import { AppState, SchemaState } from '../typings'
+
+export const schema: Module<SchemaState, AppState> = {
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+    getters,
+}

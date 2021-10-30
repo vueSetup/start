@@ -1,6 +1,7 @@
 import { SchemaObject } from "./SchemaObject";
 import { HeadersObject } from "./HeadersObject";
 import { ExampleObject } from "./ExampleObject";
+
 export interface ResponseObject {
     /**
      * **Required**.
@@ -22,5 +23,4 @@ export interface ResponseObject {
      * A list of headers that are sent with the response.
      */
     examples: ExampleObject
-
  }

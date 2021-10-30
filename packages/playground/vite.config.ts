@@ -2,6 +2,7 @@ import { loadEnv, searchForWorkspaceRoot, ConfigEnv, UserConfig } from 'vite'
 import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { getThemeVariables } from 'ant-design-vue/dist/theme'
 import { join } from 'path'
 
 // https://vitejs.dev/config/
@@ -14,6 +15,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       'process.env.BASE_URL': JSON.stringify(env.VITE_BASE_URL)
     },
     plugins: [vue(), vueJsx()],
+    css: {
+      preprocessorOptions: {
+        less: {
+          modifyVars: { ...getThemeVariables({ dark: true }) },
+          javascriptEnabled: true
+        }
+      }
+    },
     resolve: {
       alias: {
         '@': join(__dirname, './src'),

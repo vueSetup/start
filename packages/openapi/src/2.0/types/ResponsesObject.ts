@@ -25,5 +25,5 @@ export interface ResponsesObject extends ISpecificationExtension {
      * Describes the expected response for that HTTP status code.
      * Reference Object can be used to link to a response that is defined at the Swagger Object's responses section.
      */
-    [statuscode: string]: ResponseObject | ReferenceObject
+    [code: string]: ResponseObject | ReferenceObject
 }

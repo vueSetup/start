@@ -1,9 +1,11 @@
 import { createApp } from 'vue'
+
+import store from './store'
+import router from './router'
+
 import App from './App.vue'
 
-// import { Buffer } from './libs/buffer';
-
-// // @ts-ignore
-// window.Buffer = Buffer;
-
-createApp(App).mount('#app')
+createApp(App)
+    .use(store)
+    .use(router)
+    .mount('#app')
