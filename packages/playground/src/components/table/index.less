@@ -1,0 +1,41 @@
+.van-table {
+    width: 100%;
+    border-collapse: collapse;
+
+
+    .van-horizontal-table-tr {
+        color: #111111;
+        font-size: 14px;
+        height: 45px;
+        text-align: center;
+    }
+
+    .van-horizontal-table-tr-first {
+        background-color: #F6F6FA;
+        font-weight: bold;
+    }
+
+    .van-horizontal-table-tr:nth-child(even) {
+        background-color: rgba(246, 246, 246, 0.5)
+    }
+
+    .van-vertical-table-td {
+        width: calc((100vw - 48px - 84px)* 90 / 640);
+        height: 22px;
+        line-height: 22px;
+        border-top: 1px solid #CBCBCB;
+        border-right: 1px solid #CBCBCB;
+        overflow-wrap: break-word;
+        text-align: center;
+        color: #000000;
+    }
+
+    .van-vertical-table-td:first-child {
+        border-left: 1px solid #CBCBCB;
+        background-color: #F6F9FE;
+    }
+
+    .van-vertical-table-tr:last-child .van-vertical-table-td {
+        border-bottom: 1px solid #CBCBCB;
+    }
+}
