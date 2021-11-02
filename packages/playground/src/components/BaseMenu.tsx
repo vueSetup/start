@@ -10,7 +10,7 @@ export interface MenuItemData {
     children: MenuItemData[]
 }
 
-export default defineComponent({
+const BaseMenu = defineComponent({
     setup() {
         const store = useStore()
 
@@ -63,3 +63,5 @@ export default defineComponent({
         )
     }
 })
+
+export default BaseMenu

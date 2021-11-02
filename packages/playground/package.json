@@ -8,8 +8,9 @@
   },
   "dependencies": {
     "@lola/openapi": "1.0.0",
-    "ant-design-vue": "^3.0.0-alpha.6",
+    "ant-design-vue": "^3.0.0-alpha.8",
     "axios": "^0.24.0",
+    "monaco-editor": "^0.29.1",
     "vue": "^3.2.20",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2",

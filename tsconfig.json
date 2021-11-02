@@ -3,13 +3,15 @@
         "target": "esnext",
         "module": "esnext",
         "moduleResolution": "node",
-        "jsx": "preserve",
         "esModuleInterop": true,
+        "jsx": "preserve",
         "strict": true,
-        "useDefineForClassFields": true,
-        "sourceMap": true,
-        "resolveJsonModule": true,
         "lib": ["esnext", "dom"],
+        "resolveJsonModule": true,
+        // Vite :: TypeScript Compiler Options
+        // https://vitejs.dev/guide/features.html#typescript-compiler-options
+        "isolatedModules": true,
+        "useDefineForClassFields": true,
         "paths": {
             "@lola/openapi": ["./packages/openapi/src/index.ts"]
         }
