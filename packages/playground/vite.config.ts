@@ -3,7 +3,7 @@ import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { getThemeVariables } from 'ant-design-vue/dist/theme'
-import styleImport from 'vite-plugin-style-import'
+// import styleImport from 'vite-plugin-style-import'
 import { join } from 'path'
 
 // https://vitejs.dev/config/
@@ -18,15 +18,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     plugins: [
       vue(),
       vueJsx(),
-      styleImport({
-        libs: [
-          {
-            libraryName: 'vant',
-            esModule: true,
-            resolveStyle: (name) => `../../node_modules/vant/es/${name}/style`,
-          },
-        ],
-      }),
+      // styleImport({
+      //   libs: [
+      //     {
+      //       libraryName: 'vant',
+      //       esModule: true,
+      //       resolveStyle: (name) => `../../node_modules/vant/es/${name}/style`,
+      //     },
+      //   ],
+      // }),
     ],
     css: {
       preprocessorOptions: {
