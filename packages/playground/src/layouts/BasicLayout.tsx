@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import { RouterLink } from 'vue-router'
 import { Layout, LayoutHeader, LayoutSider, LayoutContent, LayoutFooter } from 'ant-design-vue'
 import { BaseMenu } from '@/components'
 import { RouterView } from 'vue-router'
@@ -9,7 +10,9 @@ export default defineComponent({
     setup() {
         return () => (
             <Layout>
-                <LayoutHeader style={{ height: '48px' }}>Header</LayoutHeader>
+                <LayoutHeader style={{ height: '48px' }}>
+                    <RouterLink to="/welcome">Header</RouterLink>
+                </LayoutHeader>
                 <Layout style={{ minHeight: 'calc(100vh - 64px)', paddingTop: '6px' }}>
                     <LayoutSider
                         style={{ width: '200px' }}
