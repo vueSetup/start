@@ -1,6 +1,6 @@
-import { defineComponent, reactive, watchEffect } from 'vue'
+import { defineComponent, reactive, watchEffect, toRefs } from 'vue'
 import { useStore } from 'vuex'
-import { Table, Checkbox } from 'ant-design-vue'
+import { Card, Table, Input, Checkbox, Select, Button } from 'ant-design-vue'
 import { MonacoEditor } from '@/components'
 import { useTable } from '@/composables'
 import { Swagger } from '@lola/openapi'
@@ -10,13 +10,14 @@ export type Column = {
     title?: string
     color?: boolean
     arrow?: boolean
-    responsive?: boolean
+    layout?: boolean
 }
 
 export type Settings = {
     columns: Column[]
 }
 
+const { Option } = Select
 const columns = [
     {
         dataIndex: 'dataIndex',
@@ -24,7 +25,13 @@ const columns = [
     },
     {
         dataIndex: 'title',
-        title: '标题'
+        title: '标题',
+        customRender: ({ text, record, index, column }) => (
+            <Input
+                // style={{ width: '240px' }}
+                v-model={[record.title, 'value']}
+            />
+        )
     },
     {
         dataIndex: 'color',
@@ -32,10 +39,8 @@ const columns = [
         customRender: ({ text, record, index, column }) => (
             <Checkbox
                 onChange={(e) => {
-                    const checked = e.target.checked
-                    debugger
-                    if (checked) {
-                        record.color = 'true'
+                    if (e.target.checked) {
+                        record.color = true
                     } else {
                         delete record.color
                     }
@@ -46,12 +51,37 @@ const columns = [
     {
         dataIndex: 'arrow',
         title: '箭头',
-        customRender: () => <Checkbox />
+        customRender: ({ text, record, index, column }) => (
+            <Checkbox
+                onChange={(e) => {
+                    if (e.target.checked) {
+                        record.arrow = true
+                    } else {
+                        delete record.arrow
+                    }
+                }}
+            />
+        )
     },
     {
         dataIndex: 'layout',
         title: '响应性',
-        customRender: () => <Checkbox />
+        customRender: ({ text, record, index, column }) => (
+            <Select
+                style={{ width: '120px' }}
+                onChange={(value, option) => {
+                    if (!value || value === 'display') {
+                        delete record.layout
+                    } else {
+                        record.layout = value
+                    }
+                }}
+            >
+                <Option value='display'>显示</Option>
+                <Option value='horizontal'>横向显示</Option>
+                <Option value='vertical'>纵向显示</Option>
+            </Select>
+        )
     }
 ]
 
@@ -64,15 +94,17 @@ export default defineComponent({
 
         const state = reactive<{
             data: Column[]
-            code: string
+            code: string,
+            layout: 'horizontal' | 'vertical'
         }>({
             data: [],
-            code: ''
+            code: '',
+            layout: 'horizontal'
         })
 
         const schema = store.getters[`schema/object`] as Swagger
 
-        watchEffect(() => {
+        const generateBasicColumns = () => {
             Object.entries(schema.paths).forEach(([name, path]) => {
                 if (path.get.operationId === props.operationId) {
                     // @ts-ignore
@@ -96,23 +128,51 @@ export default defineComponent({
                     }
                 }
             })
+        }
+
+        watchEffect(() => {
+            generateBasicColumns()
         })
 
         watchEffect(() => {
-            const { code } = useTable(state.data)
+            const { code } = useTable(state.data, state.layout)
             state.code = code.value
         })
 
-        return () => (
+        const handleReset = () => {
+            generateBasicColumns()
+        }
+
+        return { ...toRefs(state), handleReset }
+
+    },
+    render() {
+        const extraDom = (
             <>
-                {JSON.stringify(state.data)}
-                <Table
-                    size="middle"
-                    columns={columns}
-                    dataSource={state.data}
-                    pagination={false}
-                />
-                <MonacoEditor value={state.code} />
+                <Select
+                    style={{ width: '120px' }}
+                    v-model={[this.layout, 'value']}
+                >
+                    <Option value='horizontal'>横向布局</Option>
+                    <Option value='vertical'>纵向布局</Option>
+                </Select>
+                <Button onClick={this.handleReset} style={{ marginLeft: '8px' }}>重置</Button>
+            </>
+        )
+        return (
+            <>
+                {JSON.stringify(this.data)}
+                <Card
+                    extra={extraDom}
+                >
+                    <Table
+                        size="middle"
+                        columns={columns}
+                        dataSource={this.data}
+                        pagination={false}
+                    />
+                </Card>
+                <MonacoEditor value={this.code} />
             </>
         )
     }

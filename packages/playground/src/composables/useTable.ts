@@ -5,7 +5,7 @@ import traverse from '@babel/traverse'
 import generate from '@babel/generator'
 import * as t from '@babel/types'
 
-export const useTable = (columns: Record<string, any>[]) => {
+export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 'vertical' = 'horizontal') => {
     const source = `
                 const columns = []
                 const foo = <Table columns = { columns } />
@@ -14,19 +14,25 @@ export const useTable = (columns: Record<string, any>[]) => {
     const state = reactive<{
         code: string
     }>({
-        code: ""
+        code: ''
     })
 
     watchEffect(() => {
         const elements = columns.map((column) => {
             let properties = []
             for (const [key, value] of Object.entries(column || {})) {
-                properties.push(t.objectProperty(t.stringLiteral(key), t.stringLiteral(value)))
+                if (typeof value === 'string') {
+                    properties.push(t.objectProperty(t.stringLiteral(key), t.stringLiteral(value)))
+                }
+                if (typeof value === 'boolean') {
+                    properties.push(t.objectProperty(t.stringLiteral(key), t.booleanLiteral(value)))
+                }
             }
             return t.objectExpression(properties)
         })
 
         const replacement = t.arrayExpression(elements)
+        const tableAttribute = t.jsxAttribute(t.jsxIdentifier('layout'), t.stringLiteral(layout))
 
         const ast = parse(source, {
             plugins: ['typescript', 'jsx']
@@ -38,6 +44,8 @@ export const useTable = (columns: Record<string, any>[]) => {
                 if (path.node.body) {
                     // @ts-ignore
                     path.node.body[0].declarations[0].init = replacement
+                    // @ts-ignore
+                    path.node.body[1].declarations[0].init.openingElement.attributes.push(tableAttribute)
                 }
             }
         })
