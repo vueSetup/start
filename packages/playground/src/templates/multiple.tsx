@@ -16,7 +16,7 @@ const fieldLine = ''
 
 const isMobile = true
 
-const chartChain = (chart: Chart) => {
+export const chartChain = (chart: Chart) => {
     /**
      * 图例
      */
@@ -85,6 +85,7 @@ const chartChain = (chart: Chart) => {
         .legend({
             position: isMobile ? 'bottom' : 'top',
             align: isMobile ? 'center' : 'right',
+            itemWidth: 50,
             custom: true,
             items: legendItems
         })
@@ -105,7 +106,7 @@ const chartChain = (chart: Chart) => {
     chart
         .interval()
         .position('fieldDate*fieldInterval')
-        .color((value: number) => (value >= 0 ? primaryColor : warningColor))
+        .color(`fieldInterval`, (value: number) => value >= 0 ? primaryColor : warningColor)
         .size(20)
 
     chart.line().position('fieldDate*fieldLine').color(lineColor)

@@ -12,7 +12,7 @@ const legendName = ''
 const fieldDate = ''
 const fieldValue = ''
 
-const chartChain = (chart: Chart) => {
+export const chartChain = (chart: Chart) => {
     /**
      * 图例
      */
@@ -53,7 +53,7 @@ const chartChain = (chart: Chart) => {
             },
             onShow: ({ items }) => {
                 items[0].name = null
-                items[0].value = thousands(items[0].value, true)                
+                items[0].value = thousands(items[0].value, true)
             }
         })
         .legend({
@@ -69,6 +69,6 @@ const chartChain = (chart: Chart) => {
     chart
         .interval()
         .position(`fieldDate*fieldValue`)
-        .color((value: number) => (value >= 0 ? primaryColor : warningColor))
+        .color(`fieldValue`, (value: number) => value >= 0 ? primaryColor : warningColor)
         .size(20)
 }
