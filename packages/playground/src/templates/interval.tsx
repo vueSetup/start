@@ -1,41 +1,43 @@
-import { LegendItem, Chart, ChartParams } from '@antv/f2'
-import { thousands } from '@/utils/format'
-import dayjs from 'dayjs'
+import { Chart, ChartParams, LegendItem } from '@antv/f2'
+import { thousands, month } from '@/utils/format'
 
 const primaryColor = '#2D87D9'
 const warningColor = '#C8000A'
 const tooltipColor = '#404040'
 const gridColor = '#E8E8E8'
 
-const legendName = ''
-const fieldA = ''
-const fieldB = ''
-
 const isMobile = true
 
-const legendItems: LegendItem[] = [
-    {
-        name: `legendName`,
-        marker: 'square',
-        fill: primaryColor
-    }
-]
+const legendName = ''
+const fieldDate = ''
+const fieldValue = ''
 
 const chartChain = (chart: Chart) => {
+    /**
+     * 图例
+     */
+    const legendItems: LegendItem[] = [
+        {
+            name: `legendName`,
+            marker: 'square',
+            fill: primaryColor
+        }
+    ]
+
     /**
      * 坐标系：时间字段（月份）
      * 坐标系：数值字段（千分位）
      * 提示：自定义样式，千分位，保留两位小数。
      * 图例：底部、居中、自定义文字
+     * 度量：时间，排序（月份）
      */
     chart
-        .axis(`fieldA`, {
+        .axis(`fieldDate`, {
             label: (text) => {
-                const month = String(dayjs(text).month() + 1).padStart(2, '0')
-                return { text: `${month}月` }
+                return { text: month(text) }
             }
         })
-        .axis(`fieldB`, {
+        .axis(`fieldValue`, {
             grid: {
                 fill: gridColor,
                 lineWidth: 1
@@ -51,7 +53,7 @@ const chartChain = (chart: Chart) => {
             },
             onShow: ({ items }) => {
                 items[0].name = null
-                items[0].value = thousands(items[0].value, true)
+                items[0].value = thousands(items[0].value, true)                
             }
         })
         .legend({
@@ -66,7 +68,7 @@ const chartChain = (chart: Chart) => {
      */
     chart
         .interval()
-        .position(`fieldA*fieldB`)
+        .position(`fieldDate*fieldValue`)
         .color((value: number) => (value >= 0 ? primaryColor : warningColor))
         .size(20)
 }
