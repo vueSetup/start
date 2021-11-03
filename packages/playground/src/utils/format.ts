@@ -21,3 +21,11 @@ export const month = (value: string) => {
     const month = String(dayjs(value).month() + 1).padStart(2, '0')
     return `${month}月`
 }
+
+/**
+ * 如果是周一的话，返回`月份-日期`，否则返回`Null`
+ * @param value 
+ */
+export const monday = (value: string) => {
+    return dayjs(value).format('dddd') === 'Monday' ? dayjs(value).format('MM.DD') : null
+}
