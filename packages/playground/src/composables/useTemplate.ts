@@ -1,20 +1,12 @@
-import { AxisLabelParams, Chart, ChartParams, LegendItem } from '@antv/f2'
-import { thousands, month } from '@/utils/format'
+import template from '@babel/template'
+import generate from "@babel/generator"
+import { watchEffect } from 'vue'
 
-const white = '#FFFFFF'
-const black = '#000000'
-
-const primaryColor = '#2D87D9'
-const warningColor = '#C8000A'
-const tooltipColor = '#404040'
-const gridColor = '#E8E8E8'
-
-const isMobile = true
-
-const legendName = ''
-const fieldDate = ''
-const fieldValue = ''
-
+export const useTemplate = (tpl: string,) => {
+    const legendName = '完成'
+    const fieldDate = 'datetime'
+    const fieldValue = 'indexValue'
+    const tpl = `            
 export const chartChain = (chart: Chart) => {
     /**
      * 图例
@@ -36,14 +28,16 @@ export const chartChain = (chart: Chart) => {
      */
     chart
         .axis('${fieldDate}', {
-            label: (text: string) => ({ text: month(text) })
+            label: (text: string) => {
+                return { text: month(text) }
+            }
         })
         .axis('${fieldValue}', {
             grid: {
                 fill: gridColor,
                 lineWidth: 1
             },
-            label: (text: number) => ({ text: thousands(text) })
+            label: (text: string | number) => ({ text: thousands(text) })
         })
         .tooltip({
             showItemMarker: false,
@@ -70,6 +64,17 @@ export const chartChain = (chart: Chart) => {
     chart
         .interval()
         .position('${fieldDate}*${fieldValue}')
-        .color('${fieldValue}', (value: number) => (value >= 0 ? primaryColor : warningColor))
+        .color('${fieldValue}', (value: number) => value >= 0 ? primaryColor : warningColor)
         .size(20)
+}
+
+            `
+    console.log(tpl)
+    const ast = template.ast(tpl, {
+        plugins: ['typescript', 'jsx']
+    })
+    console.log(ast)
+    // @ts-ignore
+    const { code } = generate(ast)
+    console.log(code)
 }

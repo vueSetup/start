@@ -1,14 +1,17 @@
 import { LegendItem, Chart, ChartParams } from '@antv/f2'
 import { thousands, month } from '@/utils/format'
 
+const white = '#FFFFFF'
+const black = '#000000'
+
 const primaryColor = '#2D87D9'
 const warningColor = '#C8000A'
 const tooltipColor = '#404040'
 const gridColor = '#E8E8E8'
 const lineColor = '#F8BD46'
 
-const legendIntervalName = ''
-const legendLineName = ''
+const legendNameInterval = ''
+const legendNameLine = ''
 
 const fieldDate = ''
 const fieldInterval = ''
@@ -22,12 +25,12 @@ export const chartChain = (chart: Chart) => {
      */
     const legendItems: LegendItem[] = [
         {
-            name: `legendIntervalName`,
+            name: '${legendNameInterval}',
             marker: 'square',
             fill: primaryColor
         },
         {
-            name: 'legendLineName',
+            name: '${legendNameLine}',
             marker: function marker(x, y, r, ctx) {
                 ctx.lineWidth = 1
                 ctx.strokeStyle = ctx.fillStyle
@@ -48,19 +51,17 @@ export const chartChain = (chart: Chart) => {
      * 图例：底部、居中、自定义文字
      */
     chart
-        .axis(`fieldDate`, {
-            label: (text) => {
-                return { text: month(text) }
-            }
+        .axis('${fieldDate}', {
+            label: (text: string) => ({ text: month(text) })
         })
-        .axis(`fieldInterval`, {
+        .axis('${fieldInterval}', {
             grid: {
                 fill: gridColor,
                 lineWidth: 1
             },
-            label: (text) => ({ text: thousands(text) })
+            label: (text: number) => ({ text: thousands(text) })
         })
-        .axis(`fieldLine`, false)
+        .axis('${fieldLine}', false)
         .tooltip({
             showItemMarker: false,
             background: {
@@ -93,10 +94,10 @@ export const chartChain = (chart: Chart) => {
     /**
      * 度量：syncY => 对齐
      */
-    chart.scale('fieldInterval', {
+    chart.scale('${fieldInterval}', {
         min: 0
     })
-    chart.scale('fieldLine', {
+    chart.scale('${fieldLine}', {
         min: 0
     })
 
@@ -105,15 +106,15 @@ export const chartChain = (chart: Chart) => {
      */
     chart
         .interval()
-        .position('fieldDate*fieldInterval')
-        .color(`fieldInterval`, (value: number) => value >= 0 ? primaryColor : warningColor)
+        .position('${fieldDate}*${fieldInterval}')
+        .color('${fieldInterval}', (value: number) => value >= 0 ? primaryColor : warningColor)
         .size(20)
 
-    chart.line().position('fieldDate*fieldLine').color(lineColor)
+    chart.line().position('${fieldDate}*${fieldLine}').color(lineColor)
 
     chart
         .point()
-        .position('fieldDate*fieldLine')
+        .position('${fieldDate}*${fieldLine}')
         .style({
             fill: '#FFFFFF',
             stroke: '#ECEDF4',
