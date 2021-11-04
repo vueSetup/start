@@ -21,7 +21,14 @@ export const month = (value: string) => {
     const month = String(dayjs(value).month() + 1).padStart(2, '0')
     return `${month}月`
 }
-
+/**
+ * 日期格式化
+ * @param value 
+ * @returns 
+ */
+export const localDate = (value: string) => {
+    return dayjs(value).format('YYYY年MM月DD日')
+}
 /**
  * 如果是周一的话，返回`月份-日期`，否则返回`Null`
  * @param value 

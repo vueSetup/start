@@ -101,7 +101,7 @@ export const chartChain = (chart: Chart) => {
     })
 
     /**
-     * 几何图形：柱状，线形，点
+     * 几何图形：柱状，折线，点
      */
     chart
         .interval()
