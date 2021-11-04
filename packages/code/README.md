@@ -63,3 +63,5 @@ console.log(result.code)
 ## [@babel/types](https://babeljs.io/docs/en/babel-types)
 > The Babel Types module contains methods for building ASTs manually and for checking the types of AST nodes.
 
+## [@babel/template](https://babeljs.io/docs/en/babel-template)
+> The Babel Template is known as an implementation of quasiquotes.

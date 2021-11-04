@@ -22,7 +22,7 @@ const chartChain = (chart: Chart) => {
      */
     const legendItems: LegendItem[] = [
         {
-            name: 'legendName',
+            name: '${legendName}',
             marker: function marker(x, y, r, ctx) {
                 ctx.lineWidth = 1
                 ctx.strokeStyle = ctx.fillStyle
@@ -43,7 +43,7 @@ const chartChain = (chart: Chart) => {
      * 图例：底部、居中、自定义文字
      */
     chart
-        .axis(`fieldDate`, {
+        .axis('${fieldDate}', {
             label: (text, index, total) => {
                 let textAlign = 'center'
                 if (index === 0) {
@@ -55,13 +55,13 @@ const chartChain = (chart: Chart) => {
                 return { text: monday(text), textAlign }
             }
         })
-        .axis(`fieldValue`, {
+        .axis('${fieldValue}', {
             grid: {
                 fill: gridColor,
                 lineWidth: 1,
                 lineDash: null
             },
-            label: (text) => ({ text: thousands(text) })
+            label: (text: string) => ({ text: thousands(text) })
         })
         .tooltip({
             showCrosshairs: true,
@@ -96,7 +96,7 @@ const chartChain = (chart: Chart) => {
             custom: true,
             items: legendItems
         })
-        .scale('fieldValue', {
+        .scale('${fieldValue}', {
             tickCount: 5,
             min: 0
         })
@@ -104,19 +104,19 @@ const chartChain = (chart: Chart) => {
     /**
      * 度量：syncY => 对齐
      */
-    chart.scale('fieldValue', {
+    chart.scale('${fieldValue}', {
         tickCount: 5,
         min: 0
     })
 
     /**
-     * 几何图形：线形
+     * 几何图形：线形，点
      */
-    chart.line().position('fieldDate*fieldValue').color(lineColor)
+    chart.line().position('${fieldDate}*${fieldValue}').color(lineColor)
 
     chart
         .point()
-        .position('fieldDate*fieldValue')
+        .position('${fieldDate}*${fieldValue}')
         .style({
             fill: white,
             stroke: '#ECEDF4',

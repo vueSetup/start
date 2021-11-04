@@ -32,7 +32,7 @@ const chartChain = (chart: Chart) => {
             opacity: 0
         },
         label1: (data: Record<string, any>) => ({
-            text: `${data[`fieldLabel`]}：${data[`fieldValue`]}%`,
+            text: `${data['${fieldLabel}']}：${data['${fieldValue}']}%`,
             fill: '#343434',
             fontSize: 10
         })
@@ -41,5 +41,5 @@ const chartChain = (chart: Chart) => {
     /**
      * 几何图形：饼形，颜色，调整数据类型：层叠类型
      */
-    chart.interval().position(`circle*fieldValue`).color(`fieldLabel`).adjust('stack')
+    chart.interval().position('circle*${fieldValue}').color('${fieldLabel}').adjust('stack')
 }
