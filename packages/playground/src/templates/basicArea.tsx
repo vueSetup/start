@@ -1,5 +1,7 @@
-import { Chart, ChartParams, LegendItem, AxisLabelParams } from '@antv/f2'
+import { Chart, ChartParams, LegendItem, AxisLabelParams, Data, DataRecord } from '@antv/f2'
+import dayjs from 'dayjs'
 import { thousands, localDate } from '@/utils/format'
+import { DataDim, getLabels } from '@/utils/data'
 
 const gridColor = '#E8E8E8'
 const lineColor = 'l(90) 0:#1890FF 1:#f7f7f7'
@@ -10,11 +12,16 @@ const fieldValue = ''
 
 const isMobile = true
 
-const chartChain = (chart: Chart) => {
-    // chart.scale('value', {
-    //     tickCount: 5,
-    //     min: 0
-    // })
+const chartChain = (chart: Chart, data: Data<DataRecord>, datetype: DataDim) => {
+    const labels = getLabels(data, 'date', datetype)
+    /**
+     * 度量：刻度点数、最小值
+     */
+
+    chart.scale('${fieldValue}', {
+        tickCount: 5,
+        min: 0
+    })
     /**
      * 坐标轴
      */
@@ -28,10 +35,10 @@ const chartChain = (chart: Chart) => {
             }
             if (labels.includes(text)) {
                 if (datetype === 'month' || datetype === 'quarterly') {
-                    textCfg.text = moment(text).format('MM.DD')
+                    textCfg.text = dayjs(text).format('MM.DD')
                 }
                 if (datetype === 'halfYear' || datetype === 'year') {
-                    textCfg.text = `${moment(text).format('MM')}月`
+                    textCfg.text = dayjs(text).format('MM月')
                 }
             } else {
                 textCfg.text = null
@@ -72,7 +79,7 @@ const chartChain = (chart: Chart) => {
         },
         onShow: ({ items }) => {
             items[0].title = localDate(items[0].title)
-            items[0].name = '价格'
+            items[0].name = '收盘价'
             items[0].value = `${thousands(items[0].value, true)}美元/股 `
         }
     })
