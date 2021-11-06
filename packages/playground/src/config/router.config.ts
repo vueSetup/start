@@ -13,11 +13,19 @@ const staticRoutes: RouteRecordRaw[] = [
                 name: 'welcome',
                 meta: { title: '首页' },
                 component: () => import(/* webpackChunkName: "welcome" */ '@/views/welcome')
-            }, {
+            },
+            {
                 path: '/scenes/table/:operationId',
                 name: 'table',
-                meta: { title: '首页' },
+                meta: { title: '表格' },
                 component: () => import(/* webpackChunkName: "welcome" */ '@/views/scenes/table'),
+                props: true
+            },
+            {
+                path: '/scenes/chart/:operationId',
+                name: 'chart',
+                meta: { title: '图表' },
+                component: () => import(/* webpackChunkName: "welcome" */ '@/views/editor'),
                 props: true
             }
         ]
