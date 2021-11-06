@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex';
 import { SchemaState } from '../typings';
-import { Swagger, SwaggerObject, isSwaggerObject, OpenAPI, OpenAPIObject, isOpenAPIObject } from "@lola/openapi"
+import { Swagger, SwaggerObject, isSwaggerObject, OpenAPI, OpenAPIObject, isOpenAPIObject } from "@runes/openapi"
 
 export const SET_SCHEMA = 'setSchema'
 

@@ -13,7 +13,7 @@
         "isolatedModules": true,
         "useDefineForClassFields": true,
         "paths": {
-            "@lola/openapi": ["./packages/openapi/src/index.ts"]
+            "@runes/openapi": ["./packages/openapi/src/index.ts"]
         }
     }
 }

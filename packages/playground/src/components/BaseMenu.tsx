@@ -2,7 +2,7 @@ import { defineComponent, isReactive, isRef, PropType, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { RouterLink } from 'vue-router'
 import { Menu, SubMenu, MenuItem } from 'ant-design-vue'
-import { Swagger } from '@lola/openapi'
+import { Swagger } from '@runes/openapi'
 
 export interface MenuItemData {
     key: string

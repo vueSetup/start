@@ -1,4 +1,4 @@
-import { Swagger, OpenAPI } from "@lola/openapi"
+import { Swagger, OpenAPI } from "@runes/openapi"
 
 export interface SchemaState {
     object: Swagger | OpenAPI | null

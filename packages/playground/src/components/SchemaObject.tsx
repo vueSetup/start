@@ -1,7 +1,7 @@
 import { defineComponent, isReactive, isRef, PropType, reactive, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { Table } from 'ant-design-vue'
-import { Swagger } from '@lola/openapi'
+import { Swagger } from '@runes/openapi'
 
 export default defineComponent({
     props: {

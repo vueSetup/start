@@ -1,4 +1,6 @@
 {
+  "repository": "https://github.com/vueSetup/start",
+  "license": "MIT",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -22,7 +24,5 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     }
-  },
-  "repository": "git@github.com:vueSetup/start.git",
-  "license": "MIT"
+  }
 }

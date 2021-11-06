@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@antv/f2": "^3.8.9",
-    "@lola/openapi": "1.0.0",
+    "@runes/openapi": "1.0.0",
     "ant-design-vue": "^3.0.0-alpha.8",
     "axios": "^0.24.0",
     "lodash-es": "^4.17.21",

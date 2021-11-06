@@ -94,6 +94,10 @@ export const chartChain = (chart: Chart) => {
     /**
      * 度量：syncY => 对齐
      */
+    // chart.scale('${fieldDate}', {
+    //     type: 'timeCat',
+    //     formatter: (text) => month(text)
+    // })
     chart.scale('${fieldInterval}', {
         min: 0
     })
@@ -107,7 +111,7 @@ export const chartChain = (chart: Chart) => {
     chart
         .interval()
         .position('${fieldDate}*${fieldInterval}')
-        .color('${fieldInterval}', (value: number) => value >= 0 ? primaryColor : warningColor)
+        .color('${fieldInterval}', (value: number) => (value >= 0 ? primaryColor : warningColor))
         .size(20)
 
     chart.line().position('${fieldDate}*${fieldLine}').color(lineColor)

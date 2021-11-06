@@ -3,7 +3,7 @@ import { useStore } from 'vuex'
 import { Card, Table, Input, Checkbox, Select, Button } from 'ant-design-vue'
 import { MonacoEditor } from '@/components'
 import { useTable } from '@/composables'
-import { Swagger } from '@lola/openapi'
+import { Swagger } from '@runes/openapi'
 
 export type Column = {
     dataIndex: string
