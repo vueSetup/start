@@ -53,19 +53,23 @@ export default defineComponent({
         watchEffect(() => {
             generateBasicColumns()
         })
+        const handleSubmit = (code: string) => {
+            state.code = code
+        }
+
 
         const handleReset = () => {
             generateBasicColumns()
         }
 
-        return { ...toRefs(state), handleReset }
+        return { ...toRefs(state), handleSubmit, handleReset }
     },
     render() {
         return (
             <>
                 <Tabs>
                     <TabPane key="basicColumn" tab="基础柱状图">
-                        <BasicColumn fieldOptions={this.data} />
+                        <BasicColumn fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="multiple" tab="柱状折线对比图">
                         <Multiple fieldOptions={this.data} />
@@ -86,7 +90,7 @@ export default defineComponent({
                         <StackColumn fieldOptions={this.data} />
                     </TabPane>
                 </Tabs>
-                {/* <MonacoEditor value={this.code} /> */}
+                <MonacoEditor value={this.code} />
             </>
         )
     }

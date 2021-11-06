@@ -1,13 +1,17 @@
-import { defineComponent, PropType, toRefs, reactive, toRaw } from 'vue'
-import { Form, FormItem, Input, InputNumber, Select } from 'ant-design-vue'
+import { defineComponent, PropType, toRefs, reactive, toRaw, ref, watchEffect } from 'vue'
+import { Form, FormItem, Input, InputNumber, Select, Button } from 'ant-design-vue'
+import { useBasicColumn } from './useBasicColumn'
 
 const { useForm } = Form
 
 export default defineComponent({
     props: {
-        fieldOptions: Array as PropType<Array<{ value: string; label?: string; }>>
+        fieldOptions: Array as PropType<Array<{ value: string; label?: string; }>>,
+        onSubmit: Function as PropType<(code: string) => void>
     },
-    setup(props) {
+    setup(props, { emit }) {
+        const code = ref<string>('')
+
         const modelRef = reactive({
             mobileHeight: 300,
             padHeight: 144,
@@ -36,14 +40,11 @@ export default defineComponent({
             onValidate: (...args) => console.log(...args),
         });
         const onSubmit = () => {
-            validate()
-                .then(() => {
-                    console.log(toRaw(modelRef));
-                })
-                .catch(err => {
-                    console.log('error', err);
-                });
-        };
+            emit('submit', code.value)
+        }
+        watchEffect(() => {
+            code.value = useBasicColumn(modelRef.fieldDate, modelRef.fieldValue, modelRef.legendName)
+        })
         return { modelRef, validateInfos, resetFields, onSubmit }
     },
     render() {
@@ -68,6 +69,10 @@ export default defineComponent({
                     </FormItem>
                     <FormItem label="图例" {...this.validateInfos.legendName}>
                         <Input v-model={[this.modelRef.legendName, 'value']} allowClear />
+                    </FormItem>
+                    <FormItem wrapperCol={{ span: 10, offset: 4 }}>
+                        <Button type="primary" onClick={this.onSubmit}>保存</Button>
+                        <Button onClick={this.resetFields} style={{ marginLeft: '10px' }}>重置</Button>
                     </FormItem>
                 </Form>
             </>
