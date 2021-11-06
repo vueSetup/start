@@ -3,7 +3,7 @@ import { useStore } from 'vuex'
 import { Card, Tabs, TabPane, Input, Checkbox, Select, Button } from 'ant-design-vue'
 import { MonacoEditor } from '@/components'
 import { Swagger } from '@lola/openapi'
-import { BasicColumn } from './scenes/chart'
+import { BasicColumn, Multiple, BasicLine, BasicArea, Donut, StackArea, StackColumn } from './scenes/chart'
 
 
 export default defineComponent({
@@ -66,6 +66,24 @@ export default defineComponent({
                 <Tabs>
                     <TabPane key="basicColumn" tab="基础柱状图">
                         <BasicColumn fieldOptions={this.data} />
+                    </TabPane>
+                    <TabPane key="multiple" tab="柱状折线对比图">
+                        <Multiple fieldOptions={this.data} />
+                    </TabPane>
+                    <TabPane key="basicLine" tab="基础折线图">
+                        <BasicLine fieldOptions={this.data} />
+                    </TabPane>
+                    <TabPane key="basicArea" tab="基础面积图">
+                        <BasicArea fieldOptions={this.data} />
+                    </TabPane>
+                    <TabPane key="donut" tab="环形图">
+                        <Donut fieldOptions={this.data} />
+                    </TabPane>
+                    <TabPane key="stackArea" tab="层叠面积图">
+                        <StackArea fieldOptions={this.data} />
+                    </TabPane>
+                    <TabPane key="stackColumn" tab="层叠柱状图">
+                        <StackColumn fieldOptions={this.data} />
                     </TabPane>
                 </Tabs>
                 {/* <MonacoEditor value={this.code} /> */}

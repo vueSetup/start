@@ -11,9 +11,9 @@ export default defineComponent({
         const modelRef = reactive({
             mobileHeight: 300,
             padHeight: 144,
-            legendName: '',
             fieldDate: '',
-            fieldValue: ''
+            fieldValue: '',
+            fieldCategory: ''
         })
         const rulesRef = reactive({
             mobileHeight: [{
@@ -22,13 +22,13 @@ export default defineComponent({
             padHeight: [{
                 required: true
             }],
-            legendName: [{
-                required: true
-            }],
             fieldDate: [{
                 required: true
             }],
             fieldValue: [{
+                required: true
+            }],
+            fieldCategory: [{
                 required: true
             }]
         })
@@ -66,8 +66,8 @@ export default defineComponent({
                     <FormItem label="y轴" {...this.validateInfos.fieldValue}>
                         <Select options={this.fieldOptions} v-model={[this.modelRef.fieldValue, 'value']} />
                     </FormItem>
-                    <FormItem label="图例" {...this.validateInfos.legendName}>
-                        <Input v-model={[this.modelRef.legendName, 'value']} allowClear />
+                    <FormItem label="类别" {...this.validateInfos.fieldCategory}>
+                        <Select options={this.fieldOptions} v-model={[this.modelRef.fieldCategory, 'value']} />
                     </FormItem>
                 </Form>
             </>

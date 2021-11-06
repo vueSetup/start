@@ -11,9 +11,9 @@ export default defineComponent({
         const modelRef = reactive({
             mobileHeight: 300,
             padHeight: 144,
-            legendName: '',
             fieldDate: '',
-            fieldValue: ''
+            fieldValue: '',
+            legendName: ''
         })
         const rulesRef = reactive({
             mobileHeight: [{
@@ -22,13 +22,13 @@ export default defineComponent({
             padHeight: [{
                 required: true
             }],
-            legendName: [{
-                required: true
-            }],
             fieldDate: [{
                 required: true
             }],
             fieldValue: [{
+                required: true
+            }],
+            legendName: [{
                 required: true
             }]
         })

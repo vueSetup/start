@@ -11,9 +11,11 @@ export default defineComponent({
         const modelRef = reactive({
             mobileHeight: 300,
             padHeight: 144,
-            legendName: '',
             fieldDate: '',
-            fieldValue: ''
+            fieldInterval: '',
+            fieldLine: '',
+            legendNameInterval: '',
+            legendNameLine: ''
         })
         const rulesRef = reactive({
             mobileHeight: [{
@@ -22,13 +24,19 @@ export default defineComponent({
             padHeight: [{
                 required: true
             }],
-            legendName: [{
-                required: true
-            }],
             fieldDate: [{
                 required: true
             }],
-            fieldValue: [{
+            fieldInterval: [{
+                required: true
+            }],
+            fieldLine: [{
+                required: true
+            }],
+            legendNameInterval: [{
+                required: true
+            }],
+            legendNameLine: [{
                 required: true
             }]
         })
@@ -63,11 +71,17 @@ export default defineComponent({
                     <FormItem label="x轴" {...this.validateInfos.fieldDate}>
                         <Select options={this.fieldOptions} v-model={[this.modelRef.fieldDate, 'value']} />
                     </FormItem>
-                    <FormItem label="y轴" {...this.validateInfos.fieldValue}>
-                        <Select options={this.fieldOptions} v-model={[this.modelRef.fieldValue, 'value']} />
+                    <FormItem label="y轴-柱状图" {...this.validateInfos.fieldInterval}>
+                        <Select options={this.fieldOptions} v-model={[this.modelRef.fieldInterval, 'value']} />
                     </FormItem>
-                    <FormItem label="图例" {...this.validateInfos.legendName}>
-                        <Input v-model={[this.modelRef.legendName, 'value']} allowClear />
+                    <FormItem label="图例-柱状图" {...this.validateInfos.legendNameInterval}>
+                        <Input v-model={[this.modelRef.legendNameInterval, 'value']} allowClear />
+                    </FormItem>
+                    <FormItem label="y轴-折线图" {...this.validateInfos.fieldLine}>
+                        <Select options={this.fieldOptions} v-model={[this.modelRef.fieldLine, 'value']} />
+                    </FormItem>
+                    <FormItem label="图例-折线图" {...this.validateInfos.legendNameLine}>
+                        <Input v-model={[this.modelRef.legendNameLine, 'value']} allowClear />
                     </FormItem>
                 </Form>
             </>
