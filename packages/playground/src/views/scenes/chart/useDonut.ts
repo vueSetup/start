@@ -5,7 +5,7 @@ import { watchEffect } from 'vue'
 export const useDonut = (fieldLabel: string, fieldValue: string) => {
 
     const tpl = `            
-    import { Chart, ChartParams, LegendItem } from '@antv/f2'
+import { Chart, ChartParams, LegendItem } from '@antv/f2'
 import { thousands, month } from '@/utils/format'
 
 const fieldLabel = ''
@@ -39,7 +39,7 @@ const chartChain = (chart: Chart) => {
             opacity: 0
         },
         label1: (data: Record<string, any>) => ({
-            text: '${ data['${fieldLabel}']}：${ data['${fieldValue}']}% ',
+            text: data['${fieldLabel}']:data['${fieldValue}']%',
             fill: '#343434',
             fontSize: 10
         })

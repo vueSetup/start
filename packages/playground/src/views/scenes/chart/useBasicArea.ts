@@ -56,7 +56,7 @@ const chartChain = (chart: Chart, data: Data<DataRecord>, datetype: DataDim) => 
             fill: gridColor,
             lineWidth: 1
         },
-        label: (text) => ({ text: '${thousands(text)} (美元)' })
+        label: (text) => ({ text: thousands(text) + '(美元)' })
     })
     /**
      * 提示信息
@@ -85,7 +85,7 @@ const chartChain = (chart: Chart, data: Data<DataRecord>, datetype: DataDim) => 
         onShow: ({ items }) => {
             items[0].title = localDate(items[0].title)
             items[0].name = '收盘价'
-            items[0].value = '${thousands(items[0].value, true)}美元/股'
+            items[0].value = thousands(items[0].value, true) + '美元/股'
         }
     })
 
