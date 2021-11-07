@@ -33,6 +33,15 @@ const columns = [
             />
         )
     },
+    // {
+    //     dataIndex: 'dataIndex',
+    //     title: '是否显示',
+    //     customRender: ({ text, record, index, column }) => (
+    //         <Checkbox
+    //             onChange={(e) => {}}
+    //         />
+    //     )
+    // },
     {
         dataIndex: 'color',
         title: '颜色',

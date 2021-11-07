@@ -1,13 +1,17 @@
-import { defineComponent, PropType, toRefs, reactive, toRaw } from 'vue'
+import { defineComponent, PropType, toRefs, reactive, ref, watchEffect } from 'vue'
 import { Form, FormItem, Input, InputNumber, Select } from 'ant-design-vue'
+import { useStackColumn } from './useStackColumn'
 
 const { useForm } = Form
 
 export default defineComponent({
     props: {
-        fieldOptions: Array as PropType<Array<{ value: string; label?: string; }>>
+        fieldOptions: Array as PropType<Array<{ value: string; label?: string; }>>,
+        onSubmit: Function as PropType<(code: string) => void>
     },
-    setup(props) {
+    setup(props, { emit }) {
+        const code = ref<string>('')
+
         const modelRef = reactive({
             mobileHeight: 300,
             padHeight: 144,
@@ -32,18 +36,14 @@ export default defineComponent({
                 required: true
             }]
         })
-        const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef, {
-            onValidate: (...args) => console.log(...args),
-        });
+        const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
+
         const onSubmit = () => {
-            validate()
-                .then(() => {
-                    console.log(toRaw(modelRef));
-                })
-                .catch(err => {
-                    console.log('error', err);
-                });
-        };
+            emit('submit', code.value)
+        }
+        watchEffect(() => {
+            code.value = useStackColumn(modelRef.fieldDate, modelRef.fieldValue, modelRef.fieldCategory)
+        })
         return { modelRef, validateInfos, resetFields, onSubmit }
     },
     render() {

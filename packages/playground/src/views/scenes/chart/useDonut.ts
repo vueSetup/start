@@ -2,7 +2,7 @@ import template from '@babel/template'
 import generate from "@babel/generator"
 import { watchEffect } from 'vue'
 
-export const useBasicColumn = (fieldDate: string, fieldValue: string, legendName?: string) => {
+export const useBasicColumn = (fieldDate: string, fieldValue: string, legendName?: string,) => {
 
     const tpl = `            
     import { AxisLabelParams, Chart, ChartParams, LegendItem } from '@antv/f2'

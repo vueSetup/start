@@ -36,9 +36,8 @@ export default defineComponent({
                 required: true
             }]
         })
-        const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef, {
-            onValidate: (...args) => console.log(...args),
-        });
+        const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
+        
         const onSubmit = () => {
             emit('submit', code.value)
         }

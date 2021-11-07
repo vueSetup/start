@@ -54,7 +54,7 @@ const BaseMenu = defineComponent({
                     <SubMenu key={key} title={title}>
                         {children.map(({ key, title }) => (
                             <MenuItem key={key}>
-                                <RouterLink to={`/scenes/chart/${key}`}>{title}</RouterLink>
+                                <RouterLink to={`/scenes/table/${key}`}>{title}</RouterLink>
                             </MenuItem>
                         ))}
                     </SubMenu>
