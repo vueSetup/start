@@ -72,22 +72,22 @@ export default defineComponent({
                         <BasicColumn fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="multiple" tab="柱状折线对比图">
-                        <Multiple fieldOptions={this.data} />
+                        <Multiple fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="basicLine" tab="基础折线图">
-                        <BasicLine fieldOptions={this.data} />
+                        <BasicLine fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="basicArea" tab="基础面积图">
-                        <BasicArea fieldOptions={this.data} />
+                        <BasicArea fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="donut" tab="环形图">
-                        <Donut fieldOptions={this.data} />
+                        <Donut fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="stackArea" tab="层叠面积图">
-                        <StackArea fieldOptions={this.data} />
+                        <StackArea fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                     <TabPane key="stackColumn" tab="层叠柱状图">
-                        <StackColumn fieldOptions={this.data} />
+                        <StackColumn fieldOptions={this.data} onSubmit={this.handleSubmit} />
                     </TabPane>
                 </Tabs>
                 <MonacoEditor value={this.code} />

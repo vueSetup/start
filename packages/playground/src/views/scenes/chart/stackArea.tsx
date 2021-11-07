@@ -1,5 +1,5 @@
 import { defineComponent, PropType, toRefs, reactive, ref, watchEffect } from 'vue'
-import { Form, FormItem, Input, InputNumber, Select } from 'ant-design-vue'
+import { Form, FormItem, Button, InputNumber, Select } from 'ant-design-vue'
 import { useStackArea } from './useStackArea'
 
 const { useForm } = Form
@@ -68,6 +68,10 @@ export default defineComponent({
                     </FormItem>
                     <FormItem label="类别" {...this.validateInfos.fieldCategory}>
                         <Select options={this.fieldOptions} v-model={[this.modelRef.fieldCategory, 'value']} />
+                    </FormItem>
+                    <FormItem wrapperCol={{ span: 10, offset: 4 }}>
+                        <Button type="primary" onClick={this.onSubmit}>保存</Button>
+                        <Button onClick={this.resetFields} style={{ marginLeft: '10px' }}>重置</Button>
                     </FormItem>
                 </Form>
             </>
