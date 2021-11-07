@@ -39,7 +39,7 @@ const chartChain = (chart: Chart) => {
             opacity: 0
         },
         label1: (data: Record<string, any>) => ({
-            text: data['${fieldLabel}']:data['${fieldValue}']%',
+            text: data['${fieldLabel}'] + ':' + data['${fieldValue}'] + '%',
             fill: '#343434',
             fontSize: 10
         })
