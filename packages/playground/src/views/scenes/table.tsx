@@ -1,6 +1,7 @@
 import { defineComponent, reactive, watchEffect, toRefs } from 'vue'
 import { useStore } from 'vuex'
 import { Card, Table, Input, Checkbox, Select, Button } from 'ant-design-vue'
+import { omit } from 'lodash-es'
 import { MonacoEditor } from '@/components'
 import { useTable } from '@/composables'
 import { Swagger } from '@runes/openapi'
@@ -11,6 +12,7 @@ export type Column = {
     color?: boolean
     arrow?: boolean
     layout?: boolean
+    show?: boolean
 }
 
 export type Settings = {
@@ -33,15 +35,21 @@ const columns = [
             />
         )
     },
-    // {
-    //     dataIndex: 'dataIndex',
-    //     title: '是否显示',
-    //     customRender: ({ text, record, index, column }) => (
-    //         <Checkbox
-    //             onChange={(e) => {}}
-    //         />
-    //     )
-    // },
+    {
+        dataIndex: 'dataIndex',
+        title: '是否显示',
+        customRender: ({ text, record, index, column }) => (
+            <Checkbox
+                onChange={(e) => {
+                    if (e.target.checked) {
+                        record.show = true
+                    } else {
+                        delete record.show
+                    }
+                }}
+            />
+        )
+    },
     {
         dataIndex: 'color',
         title: '颜色',
@@ -144,7 +152,11 @@ export default defineComponent({
         })
 
         watchEffect(() => {
-            const { code } = useTable(state.data, state.layout)
+            const data = state.data
+                .filter(item => item.show)
+                .map(item => omit(item, 'show')
+            )
+            const { code } = useTable(data, state.layout)
             state.code = code.value
         })
 
