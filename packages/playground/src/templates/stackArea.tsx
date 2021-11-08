@@ -28,23 +28,23 @@ const chartChain = (chart: Chart) => {
     /**
      * 图例
      */
-    const legendItems: LegendItem[] = [
-        {
-            name: '中石油',
-            fill: '#EE8301',
-            marker
-        },
-        {
-            name: '中石化',
-            fill: '#F6BE34',
-            marker
-        },
-        {
-            name: '中海油',
-            fill: '#3783CE',
-            marker
-        }
-    ]
+    // const legendItems: LegendItem[] = [
+    //     {
+    //         name: '中石油',
+    //         fill: '#EE8301',
+    //         marker
+    //     },
+    //     {
+    //         name: '中石化',
+    //         fill: '#F6BE34',
+    //         marker
+    //     },
+    //     {
+    //         name: '中海油',
+    //         fill: '#3783CE',
+    //         marker
+    //     }
+    // ]
 
     /**
      * 坐标系：时间字段（位置、月份）
@@ -89,8 +89,7 @@ const chartChain = (chart: Chart) => {
             position: isMobile ? 'bottom' : 'top',
             align: isMobile ? 'center' : 'right',
             itemWidth: 50,
-            custom: true,
-            items: legendItems
+            marker
         })
 
     /**
