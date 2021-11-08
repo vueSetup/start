@@ -18,8 +18,9 @@ export const thousands = (value: string | number, fixed = false) => {
  * @returns 
  */
 export const month = (value: string) => {
-    const month = String(dayjs(value).month() + 1).padStart(2, '0')
-    return `${month}月`
+    // const month = String(dayjs(value).month() + 1).padStart(2, '0')
+    // return `${month}月`
+    return dayjs(value).format('MM月')
 }
 /**
  * 日期格式化
