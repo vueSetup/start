@@ -22,8 +22,8 @@ const staticRoutes: RouteRecordRaw[] = [
                 props: true
             },
             {
-                path: '/scenes/chart/:operationId',
-                name: 'chart',
+                path: '/scenes/editor/:operationId',
+                name: 'editor',
                 meta: { title: '图表' },
                 component: () => import(/* webpackChunkName: "welcome" */ '@/views/editor'),
                 props: true

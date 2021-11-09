@@ -8,7 +8,7 @@ const primaryColor = '#2D87D9'
 const warningColor = '#C8000A'
 const tooltipColor = '#404040'
 const gridColor = '#E8E8E8'
-const lineColor = '#F8BD46'
+const lineColor = '#2D87D9'
 
 const legendName = ''
 const fieldDate = ''
