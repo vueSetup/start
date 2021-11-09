@@ -31,7 +31,6 @@ const columns = [
         title: '标题',
         customRender: ({ text, record, index, column }) => (
             <Input
-                // style={{ width: '240px' }}
                 v-model={[record.title, 'value']}
             />
         )
@@ -41,13 +40,7 @@ const columns = [
         title: '是否显示',
         customRender: ({ text, record, index, column }) => (
             <Checkbox
-                onChange={(e) => {
-                    if (e.target.checked) {
-                        record.show = true
-                    } else {
-                        delete record.show
-                    }
-                }}
+                v-model={[record.show, 'checked']}
             />
         )
     },
@@ -56,10 +49,9 @@ const columns = [
         title: '颜色',
         customRender: ({ text, record, index, column }) => (
             <Checkbox
+                v-model={[record.color, 'checked']}
                 onChange={(e) => {
-                    if (e.target.checked) {
-                        record.color = true
-                    } else {
+                    if (!e.target.checked) {
                         delete record.color
                     }
                 }}
@@ -71,10 +63,9 @@ const columns = [
         title: '箭头',
         customRender: ({ text, record, index, column }) => (
             <Checkbox
+                v-model={[record.arrow, 'checked']}
                 onChange={(e) => {
-                    if (e.target.checked) {
-                        record.arrow = true
-                    } else {
+                    if (!e.target.checked) {
                         delete record.arrow
                     }
                 }}
@@ -87,11 +78,10 @@ const columns = [
         customRender: ({ text, record, index, column }) => (
             <Select
                 style={{ width: '120px' }}
+                v-model={[record.layout, 'value']}
                 onChange={(value, option) => {
                     if (!value || value === 'display') {
                         delete record.layout
-                    } else {
-                        record.layout = value
                     }
                 }}
             >
