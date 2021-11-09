@@ -7,9 +7,48 @@ import * as t from '@babel/types'
 
 export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 'vertical' = 'horizontal') => {
     const source = `
-                const columns = []
-                const foo = <Table columns = { columns } />
-            `
+    const columns: TableColumn[] = []
+    const foo = <Table columns = { columns } />
+    `
+
+    const code = `
+    import { defineComponent, reactive, watchEffect } from 'vue'
+    import { Table, TableColumn } from '@/components'
+    import { useRouteContext } from '@/shared/RouteContext'
+    import { Chart, ChartParams, LegendItem } from '@antv/f2'
+    import { alignPlugin } from '@/plugins/align'
+    import { useChart } from '@antv/f2-vue-use'
+    import request from '@/utils/request'
+    import { thousands, day, month, number, postData } from '@/utils/format'
+
+    const columns: TableColumn[] = []
+
+    export default defineComponent({
+        setup() {
+            const context = useRouteContext()
+
+            const params = reactive<Record<string, any>>({
+                type: 1,
+                dataTime: day(context.selectedDate)
+            })
+
+            const fetchData = async (params: Record<string, any>) => {
+                return await request.get<any, Record<string, any>[]>('/api/scyx/trendAnalysisTab', {
+                    params
+                })
+            }
+
+            const { container } = useChart(options, fetchData, postData, params, chartChain)
+
+            return () => (
+                <>
+                    <canvas ref={container} />
+                    <Table columns={columns} request={fetchData} params={params} />
+                </>
+            )
+        }
+    })
+    `
 
     const state = reactive<{
         code: string
