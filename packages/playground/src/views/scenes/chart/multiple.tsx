@@ -1,5 +1,5 @@
 import { defineComponent, PropType, toRefs, reactive, ref, watchEffect } from 'vue'
-import { Form, FormItem, Input, InputNumber, Select,Button } from 'ant-design-vue'
+import { Form, FormItem, Input, InputNumber, Select, Button } from 'ant-design-vue'
 import { useMultiple } from './useMultiple'
 
 const { useForm } = Form
@@ -14,7 +14,7 @@ export default defineComponent({
 
         const modelRef = reactive({
             mobileHeight: 300,
-            padHeight: 144,
+            padHeight: 150,
             fieldDate: '',
             fieldInterval: '',
             fieldLine: '',

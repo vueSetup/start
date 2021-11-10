@@ -15,7 +15,7 @@ export default defineComponent({
                 </LayoutHeader>
                 <Layout style={{ minHeight: 'calc(100vh - 64px)', paddingTop: '6px' }}>
                     <LayoutSider
-                        style={{ width: '200px' }}
+                        width="260px"
                     >
                         <BaseMenu />
                     </LayoutSider>

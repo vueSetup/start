@@ -9,20 +9,17 @@ export const useBasicArea = (fieldDate: string, fieldValue: string) => {
     import dayjs from 'dayjs'
     import { thousands, localDate } from '@/utils/format'
     import { DataDim, getLabels } from '@/utils/data'
-    
+
     const gridColor = '#E8E8E8'
     const lineColor = 'l(90) 0:#1890FF 1:#f7f7f7'
     const areaColor = 'l(90) 0:#1890FF 1:#f7f7f7'
-    
-    
-    const isMobile = true
-    
+
     const chartChain = (chart: Chart, data: Data<DataRecord>, datetype: DataDim) => {
         const labels = getLabels(data, 'date', datetype)
         /**
          * 度量：刻度点数、最小值
          */
-    
+
         chart.scale('${fieldValue}', {
             tickCount: 5,
             min: 0
@@ -80,7 +77,7 @@ export const useBasicArea = (fieldDate: string, fieldValue: string) => {
                 radius: 4,
                 fill: '#000',
                 fillOpacity: 0.75,
-                padding: isMobile ? [14, 14, 8, 8] : [9, 34, 17, 17]
+                padding: isPhone ? [14, 14, 8, 8] : [9, 34, 17, 17]
             },
             onShow: ({ items }) => {
                 items[0].title = localDate(items[0].title)
@@ -88,7 +85,7 @@ export const useBasicArea = (fieldDate: string, fieldValue: string) => {
                 items[0].value = thousands(items[0].value, true) + '美元/股'
             }
         })
-    
+
         /**
          * 几何图形：面积，折线
          */

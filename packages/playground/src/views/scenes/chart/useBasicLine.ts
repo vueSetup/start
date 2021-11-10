@@ -17,8 +17,6 @@ const tooltipColor = '#404040'
 const gridColor = '#E8E8E8'
 const lineColor = '#F8BD46'
 
-const isMobile = true
-
 const chartChain = (chart: Chart) => {
     /**
      * 图例
@@ -87,8 +85,8 @@ const chartChain = (chart: Chart) => {
             }
         })
         .legend({
-            position: isMobile ? 'bottom' : 'top',
-            align: isMobile ? 'center' : 'right',
+            position: isPhone ? 'bottom' : 'top',
+            align: isPhone ? 'center' : 'right',
             custom: true,
             items: legendItems
         })

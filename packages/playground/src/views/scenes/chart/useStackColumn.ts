@@ -7,22 +7,20 @@ export const useStackColumn = (fieldName: string, fieldValue: string, fieldCateg
     const tpl = `            
     import { Chart, ChartParams, LegendItem, AxisLabelParams, Data, DataRecord } from '@antv/f2'
     import { thousands, month } from '@/utils/format'
-    
+
     const primaryColor = '#2D87D9'
     const warningColor = '#C8000A'
     const tooltipColor = '#404040'
     const gridColor = '#E8E8E8'
     const lineColor = '#F8BD46'
-    
+
     const fieldName = ''
     const fieldValue = ''
     const fieldCategory = ''
-    
-    const isMobile = true
-    
+
     const chartChain = (chart: Chart) => {
-    
-    
+
+
         /**
          * 坐标系：时间字段（位置、月份）
          * 坐标系：数值字段（千分位）
@@ -52,12 +50,12 @@ export const useStackColumn = (fieldName: string, fieldValue: string, fieldCateg
                 }
             })
             .legend({
-                position: isMobile ? 'bottom' : 'top',
-                align: isMobile ? 'center' : 'right',
+                position: isPhone ? 'bottom' : 'top',
+                align: isPhone ? 'center' : 'right',
                 itemWidth: 50,
                 marker: 'square'
             })
-        
+
         /**
          * 几何图形：柱形，颜色，宽度，层叠类型
          */

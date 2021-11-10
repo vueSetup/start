@@ -16,8 +16,6 @@ export const useBasicColumn = (fieldDate: string, fieldValue: string, legendName
     const tooltipColor = '#404040'
     const gridColor = '#E8E8E8'
     
-    const isMobile = true
-    
     const chartChain = (chart: Chart) => {
         /**
          * 图例
@@ -61,8 +59,8 @@ export const useBasicColumn = (fieldDate: string, fieldValue: string, legendName
                 }
             })
             .legend({
-                position: isMobile ? 'bottom' : 'top',
-                align: isMobile ? 'center' : 'right',
+                position: isPhone ? 'bottom' : 'top',
+                align: isPhone ? 'center' : 'right',
                 custom: true,
                 items: legendItems
             })

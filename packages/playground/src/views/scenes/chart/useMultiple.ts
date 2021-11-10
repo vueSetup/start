@@ -17,7 +17,6 @@ export const useMultiple = (fieldDate: string, fieldInterval: string, fieldLine:
     const gridColor = '#E8E8E8'
     const lineColor = '#F8BD46'
 
-    const isMobile = true
 
     const chartChain = (chart: Chart) => {
         /**
@@ -70,7 +69,7 @@ export const useMultiple = (fieldDate: string, fieldInterval: string, fieldLine:
                     padding: [5, 6]
                 },
                 onShow: ({ items }) => {
-                    if (isMobile) {
+                    if (isPhone) {
                         items[0].name = null
                         items[0].value = thousands(items[0].value, true)
                         items.splice(1, 2)
@@ -84,8 +83,8 @@ export const useMultiple = (fieldDate: string, fieldInterval: string, fieldLine:
                 }
             })
             .legend({
-                position: isMobile ? 'bottom' : 'top',
-                align: isMobile ? 'center' : 'right',
+                position: isPhone ? 'bottom' : 'top',
+                align: isPhone ? 'center' : 'right',
                 itemWidth: 50,
                 custom: true,
                 items: legendItems

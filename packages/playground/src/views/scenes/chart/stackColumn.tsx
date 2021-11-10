@@ -14,7 +14,7 @@ export default defineComponent({
 
         const modelRef = reactive({
             mobileHeight: 300,
-            padHeight: 144,
+            padHeight: 150,
             fieldDate: '',
             fieldValue: '',
             fieldCategory: ''

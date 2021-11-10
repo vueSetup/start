@@ -7,15 +7,13 @@ export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategor
     const tpl = `            
     import { Chart, ChartParams, LegendItem, AxisLabelParams, Data, DataRecord } from '@antv/f2'
     import { thousands, month } from '@/utils/format'
-    
+
     const primaryColor = '#2D87D9'
     const warningColor = '#C8000A'
     const tooltipColor = '#404040'
     const gridColor = '#E8E8E8'
     const lineColor = '#F8BD46'
-    
-    const isMobile = true
-    
+
     function marker(x, y, r, ctx) {
         ctx.lineWidth = 1
         ctx.strokeStyle = ctx.fillStyle
@@ -25,9 +23,9 @@ export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategor
         ctx.arc(x, y, r, 0, Math.PI * 2, false)
         ctx.fill()
     }
-    
+
     const chartChain = (chart: Chart) => {
-    
+
         /**
          * 坐标系：时间字段（位置、月份）
          * 坐标系：数值字段（千分位）
@@ -68,12 +66,12 @@ export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategor
                 }
             })
             .legend({
-                position: isMobile ? 'bottom' : 'top',
-                align: isMobile ? 'center' : 'right',
+                position: isPhone ? 'bottom' : 'top',
+                align: isPhone ? 'center' : 'right',
                 itemWidth: 50,
                 marker
             })
-        
+
         /**
          * 几何图形：面积\折线，颜色，调整数据类型：层叠类型
          */
