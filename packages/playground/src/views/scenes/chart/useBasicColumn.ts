@@ -5,8 +5,14 @@ import { watchEffect } from 'vue'
 export const useBasicColumn = (fieldDate: string, fieldValue: string, legendName?: string) => {
 
     const tpl = `            
-    import { AxisLabelParams, Chart, ChartParams, LegendItem } from '@antv/f2'
-    import { thousands, month } from '@/utils/format'
+    const options: ChartParams = isPhone
+        ? {
+              height: 300,
+          }
+        : {
+              height: 150,
+              plugins: alignPlugin
+          }
     
     const white = '#FFFFFF'
     const black = '#000000'

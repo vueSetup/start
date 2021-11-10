@@ -10,6 +10,10 @@ export const useBasicArea = (fieldDate: string, fieldValue: string) => {
     import { thousands, localDate } from '@/utils/format'
     import { DataDim, getLabels } from '@/utils/data'
 
+    const options: ChartParams = {
+        height: isPhone ? 300 : 150
+    }
+
     const gridColor = '#E8E8E8'
     const lineColor = 'l(90) 0:#1890FF 1:#f7f7f7'
     const areaColor = 'l(90) 0:#1890FF 1:#f7f7f7'

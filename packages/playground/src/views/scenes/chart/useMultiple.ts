@@ -5,8 +5,17 @@ import { watchEffect } from 'vue'
 export const useMultiple = (fieldDate: string, fieldInterval: string, fieldLine: string, legendNameInterval?: string, legendNameLine?: string) => {
 
     const tpl = `
-    import { LegendItem, Chart, ChartParams } from '@antv/f2'
-    import { thousands, month } from '@/utils/format'
+
+    const options: ChartParams = isPhone
+        ? {
+              height: 300,
+              syncY: true
+          }
+        : {
+              height: 150,
+              syncY: true,
+              plugins: alignPlugin
+          }
 
     const white = '#FFFFFF'
     const black = '#000000'
@@ -16,7 +25,6 @@ export const useMultiple = (fieldDate: string, fieldInterval: string, fieldLine:
     const tooltipColor = '#404040'
     const gridColor = '#E8E8E8'
     const lineColor = '#F8BD46'
-
 
     const chartChain = (chart: Chart) => {
         /**
