@@ -10,8 +10,8 @@ import { BasicColumn, Multiple, BasicLine, BasicArea, Donut, StackArea, StackCol
 export type Column = {
     dataIndex: string
     title?: string
-    color?: boolean
-    arrow?: boolean
+    showColor?: boolean
+    showArrow?: boolean
     layout?: boolean
     show?: boolean
 }
@@ -45,28 +45,28 @@ const columns = [
         )
     },
     {
-        dataIndex: 'color',
+        dataIndex: 'showColor',
         title: '颜色',
         customRender: ({ text, record, index, column }) => (
             <Checkbox
-                v-model={[record.color, 'checked']}
+                v-model={[record.showColor, 'checked']}
                 onChange={(e) => {
                     if (!e.target.checked) {
-                        delete record.color
+                        delete record.showColor
                     }
                 }}
             />
         )
     },
     {
-        dataIndex: 'arrow',
+        dataIndex: 'showArrow',
         title: '箭头',
         customRender: ({ text, record, index, column }) => (
             <Checkbox
-                v-model={[record.arrow, 'checked']}
+                v-model={[record.showArrow, 'checked']}
                 onChange={(e) => {
                     if (!e.target.checked) {
-                        delete record.arrow
+                        delete record.showArrow
                     }
                 }}
             />
@@ -74,23 +74,39 @@ const columns = [
     },
     {
         dataIndex: 'layout',
-        title: '响应性',
+        title: '仅横向展示',
         customRender: ({ text, record, index, column }) => (
-            <Select
-                style={{ width: '120px' }}
-                v-model={[record.layout, 'value']}
-                onChange={(value, option) => {
-                    if (!value || value === 'display') {
+            <Checkbox
+                v-model={[record.layout, 'checked']}
+                onChange={(e) => {
+                    if (!e.target.checked) {
                         delete record.layout
+                    } else {
+                        record.layout = 'horizontal'
                     }
                 }}
-            >
-                <Option value='display'>显示</Option>
-                <Option value='horizontal'>横向显示</Option>
-                <Option value='vertical'>纵向显示</Option>
-            </Select>
+            />
         )
     }
+    // {
+    //     dataIndex: 'layout',
+    //     title: '响应性',
+    //     customRender: ({ text, record, index, column }) => (
+    //         <Select
+    //             style={{ width: '120px' }}
+    //             v-model={[record.layout, 'value']}
+    //             onChange={(value, option) => {
+    //                 if (!value || value === 'display') {
+    //                     delete record.layout
+    //                 }
+    //             }}
+    //         >
+    //             <Option value='display'>显示</Option>
+    //             <Option value='horizontal'>横向显示</Option>
+    //             <Option value='vertical'>纵向显示</Option>
+    //         </Select>
+    //     )
+    // }
 ]
 
 export default defineComponent({
@@ -103,11 +119,13 @@ export default defineComponent({
         const state = reactive<{
             data: Column[],
             options: { value: string; label?: string; }[],
+            api: string,
             layout: 'horizontal' | 'vertical',
             code: string
         }>({
             data: [],
             options: [],
+            api: '',
             layout: 'horizontal',
             code: ''
         })
@@ -115,8 +133,9 @@ export default defineComponent({
         const schema = store.getters[`schema/object`] as Swagger
 
         const generateBasicColumns = () => {
-            Object.entries(schema.paths).forEach(([name, path]) => {
+            Object.entries(schema.paths).forEach(([pathKey, path]) => {
                 if (path.get.operationId === props.operationId) {
+                    state.api = pathKey
                     // @ts-ignore
                     const name = path.get.responses['200'].schema.originalRef
                     const schemaObject = schema.definitions![name]
@@ -155,14 +174,13 @@ export default defineComponent({
                 .filter(item => item.show)
                 .map(item => omit(item, 'show')
                 )
-            const { code } = useTable(data, state.layout)
+            const { code } = useTable(data, state.layout, state.api)
             state.code = code.value
         })
 
         const handleSubmit = (code: string) => {
             state.code = code
         }
-
 
         const handleReset = () => {
             generateBasicColumns()

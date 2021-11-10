@@ -5,13 +5,13 @@ import traverse from '@babel/traverse'
 import generate from '@babel/generator'
 import * as t from '@babel/types'
 
-export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 'vertical' = 'horizontal') => {
-    const source = `
-    const columns: TableColumn[] = []
-    const foo = <Table columns = { columns } />
-    `
+export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 'vertical' = 'horizontal', api: string) => {
+    // const source = `
+    // const columns: TableColumn[] = []
+    // const foo = <Table columns = { columns } />
+    // `
 
-    const code = `
+    const source = `
     import { defineComponent, reactive, watchEffect } from 'vue'
     import { Table, TableColumn } from '@/components'
     import { useRouteContext } from '@/shared/RouteContext'
@@ -28,12 +28,11 @@ export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 
             const context = useRouteContext()
 
             const params = reactive<Record<string, any>>({
-                type: 1,
                 dataTime: day(context.selectedDate)
             })
 
             const fetchData = async (params: Record<string, any>) => {
-                return await request.get<any, Record<string, any>[]>('/api/scyx/trendAnalysisTab', {
+                return await request.get<any, Record<string, any>[]>('/api', {
                     params
                 })
             }
@@ -74,17 +73,29 @@ export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 
         const tableAttribute = t.jsxAttribute(t.jsxIdentifier('layout'), t.stringLiteral(layout))
 
         const ast = parse(source, {
-            plugins: ['typescript', 'jsx']
+            plugins: ['typescript', 'jsx'],
+            sourceType: 'module'
         })
 
         traverse(ast, {
-            enter(path) {
-                // @ts-ignore
-                if (path.node.body) {
-                    // @ts-ignore
-                    path.node.body[0].declarations[0].init = replacement
-                    // @ts-ignore
-                    path.node.body[1].declarations[0].init.openingElement.attributes.push(tableAttribute)
+            // enter(path) {
+            //     // @ts-ignore
+            //     if (path.node.body) {
+            //         // @ts-ignore
+            //         path.node.body[0].declarations[0].init = replacement
+            //         // @ts-ignore
+            //         path.node.body[1].declarations[0].init.openingElement.attributes.push(tableAttribute)
+            //     }
+            // }
+            VariableDeclaration(path) {
+                //@ts-ignore
+                if (path.node.declarations[0].id.name === 'columns') {
+                    path.node.declarations[0].init = replacement
+                }
+            },
+            StringLiteral(path) {
+                if (path.node.value === '/api') {
+                    path.node.value = '/api' + api
                 }
             }
         })

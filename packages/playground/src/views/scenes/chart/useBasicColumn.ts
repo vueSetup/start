@@ -18,7 +18,7 @@ export const useBasicColumn = (fieldDate: string, fieldValue: string, legendName
     
     const isMobile = true
     
-    export const chartChain = (chart: Chart) => {
+    const chartChain = (chart: Chart) => {
         /**
          * 图例
          */
