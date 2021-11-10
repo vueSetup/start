@@ -94,9 +94,9 @@ const columns = [
                     }
                 }}
             >
-                <Option value='display'>显示</Option>
-                <Option value='horizontal'>横向显示</Option>
-                <Option value='vertical'>纵向显示</Option>
+                <Option value="display">显示</Option>
+                <Option value="horizontal">横向显示</Option>
+                <Option value="vertical">纵向显示</Option>
             </Select>
         )
     }
@@ -111,7 +111,7 @@ export default defineComponent({
 
         const state = reactive<{
             data: Column[]
-            code: string,
+            code: string
             layout: 'horizontal' | 'vertical'
         }>({
             data: [],
@@ -141,6 +141,18 @@ export default defineComponent({
                                     })
                                 )
                             }
+                        } else if (data.type === undefined) {
+                            // @ts-ignore
+                            const schemaName = data.originalRef
+                            const target = schema.definitions![schemaName]
+                            if (target.type === 'object') {
+                                state.data = Object.entries(target.properties).map(
+                                    ([name, item]) => ({
+                                        dataIndex: name,
+                                        title: item.description
+                                    })
+                                )
+                            }
                         }
                     }
                 }
@@ -152,10 +164,7 @@ export default defineComponent({
         })
 
         watchEffect(() => {
-            const data = state.data
-                .filter(item => item.show)
-                .map(item => omit(item, 'show')
-            )
+            const data = state.data.filter((item) => item.show).map((item) => omit(item, 'show'))
             const { code } = useTable(data, state.layout)
             state.code = code.value
         })
@@ -165,27 +174,23 @@ export default defineComponent({
         }
 
         return { ...toRefs(state), handleReset }
-
     },
     render() {
         const extraDom = (
             <>
-                <Select
-                    style={{ width: '120px' }}
-                    v-model={[this.layout, 'value']}
-                >
-                    <Option value='horizontal'>横向布局</Option>
-                    <Option value='vertical'>纵向布局</Option>
+                <Select style={{ width: '120px' }} v-model={[this.layout, 'value']}>
+                    <Option value="horizontal">横向布局</Option>
+                    <Option value="vertical">纵向布局</Option>
                 </Select>
-                <Button onClick={this.handleReset} style={{ marginLeft: '8px' }}>重置</Button>
+                <Button onClick={this.handleReset} style={{ marginLeft: '8px' }}>
+                    重置
+                </Button>
             </>
         )
         return (
             <>
                 {JSON.stringify(this.data)}
-                <Card
-                    extra={extraDom}
-                >
+                <Card extra={extraDom}>
                     <Table
                         size="middle"
                         columns={columns}
