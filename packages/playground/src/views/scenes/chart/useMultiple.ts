@@ -98,13 +98,6 @@ export const useMultiple = (fieldDate: string, fieldInterval: string, fieldLine:
                 items: legendItems
             })
 
-        /**
-         * 度量：syncY => 对齐
-         */
-        // chart.scale('${fieldDate}', {
-        //     type: 'timeCat',
-        //     formatter: (text) => month(text)
-        // })
         chart.scale('${fieldInterval}', {
             min: 0
         })

@@ -19,13 +19,14 @@ export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 
     import { alignPlugin } from '@/plugins/align'
     import { useChart } from '@antv/f2-vue-use'
     import request from '@/utils/request'
-    import { thousands, day, month, number, postData } from '@/utils/format'
+    import { thousands, day, month, number, yearMonth, postData } from '@/utils/format'
 
     const columns: TableColumn[] = []
 
     export default defineComponent({
         setup() {
             const context = useRouteContext()
+            const { isPhone } = context
 
             const params = reactive<Record<string, any>>({
                 dataTime: day(context.selectedDate)
