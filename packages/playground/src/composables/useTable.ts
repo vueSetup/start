@@ -32,6 +32,12 @@ export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 
                 dataTime: day(context.selectedDate)
             })
 
+            watchEffect(() => {
+                Object.assign(params, {
+                    dataTime: day(context.selectedDate)
+                })
+            })
+
             const fetchData = async (params: Record<string, any>) => {
                 return await request.get<any, Record<string, any>[]>('/api', {
                     params

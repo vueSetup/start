@@ -159,6 +159,24 @@ export default defineComponent({
                                     })
                                 )
                             }
+                        } else if (data.type === undefined) {
+                            // @ts-ignore
+                            const schemaName = data.originalRef
+                            const target = schema.definitions![schemaName]
+                            if (target.type === 'object') {
+                                state.data = Object.entries(target.properties).map(
+                                    ([name, item]) => ({
+                                        dataIndex: name,
+                                        title: item.description
+                                    })
+                                )
+                                state.options = Object.entries(target.properties).map(
+                                    ([name, item]) => ({
+                                        value: name,
+                                        label: item.description
+                                    })
+                                )
+                            }
                         }
                     }
                 }

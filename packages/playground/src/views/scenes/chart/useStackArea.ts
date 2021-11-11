@@ -5,8 +5,9 @@ import { watchEffect } from 'vue'
 export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategory: string,) => {
 
     const tpl = `            
-    import { Chart, ChartParams, LegendItem, AxisLabelParams, Data, DataRecord } from '@antv/f2'
-    import { thousands, month } from '@/utils/format'
+    const options: ChartParams = {
+        height: isPhone ? 300 : 150
+    }
 
     const primaryColor = '#2D87D9'
     const warningColor = '#C8000A'
@@ -78,7 +79,7 @@ export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategor
         chart.area()
             .position('${fieldDate}*${fieldValue}')
             .color('${fieldCategory}', ['#EE8301', '#F6BE34', '#3783CE'])
-            .adjust('${fieldCategory}')
+            .adjust('stack')
         chart.line()
             .position('${fieldDate}*${fieldValue}')
             .color('${fieldCategory}', ['#EE8301', '#F6BE34', '#3783CE'])
