@@ -5,9 +5,14 @@ import { watchEffect } from 'vue'
 export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategory: string,) => {
 
     const tpl = `            
-    const options: ChartParams = {
-        height: isPhone ? 300 : 150
-    }
+    const options: ChartParams = isPhone
+        ? {
+              height: 300,
+          }
+        : {
+              height: 150,
+              plugins: alignPlugin
+          }
 
     const primaryColor = '#2D87D9'
     const warningColor = '#C8000A'
@@ -74,16 +79,14 @@ export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategor
             })
 
         /**
-         * 几何图形：面积\折线，颜色，调整数据类型：层叠类型
+         * 几何图形：面积\折线，颜色
          */
         chart.area()
             .position('${fieldDate}*${fieldValue}')
             .color('${fieldCategory}', ['#EE8301', '#F6BE34', '#3783CE'])
-            .adjust('stack')
         chart.line()
             .position('${fieldDate}*${fieldValue}')
             .color('${fieldCategory}', ['#EE8301', '#F6BE34', '#3783CE'])
-            .adjust('stack')
     }
             `
     return tpl
