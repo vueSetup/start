@@ -19,6 +19,7 @@ export const useTable = (columns: Record<string, any>[], layout: 'horizontal' | 
     import { alignPlugin } from '@/plugins/align'
     import { useChart } from '@antv/f2-vue-use'
     import request from '@/utils/request'
+    import { marker } from "@/utils/chart"
     import { thousands, day, month, number, yearMonth, postData } from '@/utils/format'
 
     const columns: TableColumn[] = []

@@ -20,16 +20,6 @@ export const useStackArea = (fieldDate: string, fieldValue: string, fieldCategor
     const gridColor = '#E8E8E8'
     const lineColor = '#F8BD46'
 
-    function marker(x, y, r, ctx) {
-        ctx.lineWidth = 1
-        ctx.strokeStyle = ctx.fillStyle
-        ctx.moveTo(x - r - 3, y)
-        ctx.lineTo(x + r + 3, y)
-        ctx.stroke()
-        ctx.arc(x, y, r, 0, Math.PI * 2, false)
-        ctx.fill()
-    }
-
     const chartChain = (chart: Chart) => {
 
         /**

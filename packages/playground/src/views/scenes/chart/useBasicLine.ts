@@ -25,15 +25,7 @@ export const useBasicLine = (fieldDate: string, fieldValue: string, legendName?:
         const legendItems: LegendItem[] = [
             {
                 name: '${legendName}',
-                marker: function marker(x, y, r, ctx) {
-                    ctx.lineWidth = 1
-                    ctx.strokeStyle = ctx.fillStyle
-                    ctx.moveTo(x - r - 3, y)
-                    ctx.lineTo(x + r + 3, y)
-                    ctx.stroke()
-                    ctx.arc(x, y, r, 0, Math.PI * 2, false)
-                    ctx.fill()
-                },
+                marker,
                 fill: lineColor
             }
         ]
