@@ -5,26 +5,20 @@ import { watchEffect } from 'vue'
 export const useBasicArea = (fieldDate: string, fieldValue: string) => {
 
     const tpl = `            
-    import { Chart, ChartParams, LegendItem, AxisLabelParams, Data, DataRecord } from '@antv/f2'
-    import dayjs from 'dayjs'
-    import { thousands, localDate } from '@/utils/format'
-    import { DataDim, getLabels } from '@/utils/data'
-
     const options: ChartParams = {
         height: isPhone ? 300 : 150
     }
-
+    
     const gridColor = '#E8E8E8'
     const lineColor = 'l(90) 0:#1890FF 1:#f7f7f7'
     const areaColor = 'l(90) 0:#1890FF 1:#f7f7f7'
-
-    const chartChain = (chart: Chart, data: Data<DataRecord>, datetype: DataDim) => {
-        const labels = getLabels(data, 'date', datetype)
+    
+    const chartChain = (chart: Chart, data: Data<DataRecord>) => {
+        const labels = getLabels(data, params.dateType)
         /**
          * 度量：刻度点数、最小值
          */
-
-        chart.scale('${fieldValue}', {
+        chart.scale('value', {
             tickCount: 5,
             min: 0
         })
@@ -40,11 +34,11 @@ export const useBasicArea = (fieldDate: string, fieldValue: string) => {
                     textCfg.textAlign = 'right'
                 }
                 if (labels.includes(text)) {
-                    if (datetype === 'month' || datetype === 'quarterly') {
-                        textCfg.text = dayjs(text).format('MM.DD')
+                    if (params.dateType === 'month' || params.dateType === 'quarterly') {
+                        textCfg.text = monthDay(text)
                     }
-                    if (datetype === 'halfYear' || datetype === 'year') {
-                        textCfg.text = dayjs(text).format('MM月')
+                    if (params.dateType === 'halfYear' || params.dateType === 'year') {
+                        textCfg.text = month(text)
                     }
                 } else {
                     textCfg.text = null
@@ -84,19 +78,21 @@ export const useBasicArea = (fieldDate: string, fieldValue: string) => {
                 padding: isPhone ? [14, 14, 8, 8] : [9, 34, 17, 17]
             },
             onShow: ({ items }) => {
-                items[0].title = localDate(items[0].title)
+                items[0].title = localDay(items[0].title)
                 items[0].name = '收盘价'
                 items[0].value = thousands(items[0].value, true) + '美元/股'
             }
         })
-
+    
         /**
          * 几何图形：面积，折线
          */
-        chart.area()
+        chart
+            .area()
             .position('${fieldDate}*${fieldValue}')
             .color(areaColor)
-        chart.line()
+        chart
+            .line()
             .position('${fieldDate}*${fieldValue}')
             .color(lineColor)
     }

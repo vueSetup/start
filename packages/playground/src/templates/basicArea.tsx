@@ -94,3 +94,4 @@ const chartChain = (chart: Chart, data: Data<DataRecord>, datetype: DataDim) => 
         .position('${fieldDate}*${fieldValue}')
         .color(lineColor)
 }
+
