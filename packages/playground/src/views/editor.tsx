@@ -6,6 +6,7 @@ import { MonacoEditor } from '@/components'
 import { useTable } from '@/composables'
 import { Swagger } from '@lola/openapi'
 import { BasicColumn, Multiple, BasicLine, BasicArea, Donut, StackArea, StackColumn } from './scenes/chart'
+import { StatisticCard } from './scenes/card'
 
 export type Column = {
     dataIndex: string
@@ -119,12 +120,14 @@ export default defineComponent({
         const state = reactive<{
             data: Column[],
             options: { value: string; label?: string; }[],
+            fields: Column[],
             api: string,
             layout: 'horizontal' | 'vertical',
             code: string
         }>({
             data: [],
             options: [],
+            fields: [],
             api: '',
             layout: 'horizontal',
             code: ''
@@ -158,6 +161,12 @@ export default defineComponent({
                                         label: item.description
                                     })
                                 )
+                                state.fields = Object.entries(target.properties).map(
+                                    ([name, item]) => ({
+                                        dataIndex: name,
+                                        title: item.description
+                                    })
+                                )
                             }
                         } else if (data.type === undefined) {
                             // @ts-ignore
@@ -174,6 +183,12 @@ export default defineComponent({
                                     ([name, item]) => ({
                                         value: name,
                                         label: item.description
+                                    })
+                                )
+                                state.fields = Object.entries(target.properties).map(
+                                    ([name, item]) => ({
+                                        dataIndex: name,
+                                        title: item.description
                                     })
                                 )
                             }
@@ -222,6 +237,9 @@ export default defineComponent({
         return (
             <>
                 <Tabs>
+                    <TabPane key="card" tab="指标卡">
+                        <StatisticCard api={this.api} fields={this.fields} onChange={this.handleSubmit} />
+                    </TabPane>
                     <TabPane key="table" tab="表格">
                         {JSON.stringify(this.data)}
                         <Card
