@@ -1,4 +1,4 @@
-import { defineComponent, reactive, watchEffect, ref, toRefs, PropType } from 'vue'
+import { defineComponent, reactive, watchEffect, ref, toRefs, PropType, watch } from 'vue'
 import { useStore } from 'vuex'
 import { Card, Table, Input, Checkbox, Select, Button, Form, FormItem, InputNumber } from 'ant-design-vue'
 import { omit, cloneDeep } from 'lodash-es'
@@ -15,6 +15,13 @@ export type Field = {
     showArrow?: boolean
     show?: boolean
 }
+
+const iconOptions = [
+    { value: 'column', label: '柱状图' },
+    { value: 'line', label: '折线图' },
+    { value: 'area', label: '面积图' },
+    { value: 'donut', label: '环形图' }
+]
 
 const columns = [
     {
@@ -85,16 +92,27 @@ export default defineComponent({
         const modelRef = reactive({
             title: '',
             unit: '',
+            icon: 'column',
             md: 12,
             data: cloneDeep(props.fields)
         })
+
+        // watch(
+        //     () => props.fields,
+        //     (fields) => {
+        //         debugger
+        //         modelRef.data = fields
+        //     },
+        //     { deep: true }
+        // )
+
         const rulesRef = reactive({})
 
         const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
 
         watchEffect(() => {
             const data = modelRef.data.filter((item) => item.show).map((item) => omit(item, 'show'))
-            const { code } = useCard(props.api, data, modelRef.title, modelRef.unit, modelRef.md)
+            const { code } = useCard(props.api, data, modelRef.title, modelRef.unit, modelRef.icon, modelRef.md)
             emit('change', code)
         })
 
@@ -113,6 +131,9 @@ export default defineComponent({
                     </FormItem>
                     <FormItem label="单位" {...this.validateInfos.unit}>
                         <Input v-model={[this.modelRef.unit, 'value']} allowClear />
+                    </FormItem>
+                    <FormItem label="图标" {...this.validateInfos.icon}>
+                        <Select options={iconOptions} v-model={[this.modelRef.icon, 'value']} />
                     </FormItem>
                     <FormItem label="栅格(平板)" {...this.validateInfos.md}>
                         <InputNumber v-model={[this.modelRef.md, 'value']} style={{ width: '100%' }} />

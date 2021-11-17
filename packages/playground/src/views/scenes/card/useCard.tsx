@@ -14,14 +14,14 @@ export type Field = {
     show?: boolean
 }
 
-export const useCard = (api: string, fields: Field[], title: string, unit: string, md: number) => {
+export const useCard = (api: string, fields: Field[], title: string, unit: string, icon: string, md: number) => {
 
     const source = `
     import { defineComponent, PropType, reactive, watchEffect } from 'vue'
     import { useRouteContext } from '@/shared/RouteContext'
     import { Card, CardField } from '@/components'
     import request from '@/utils/request'
-    import { thousands, day, month, number, postData } from '@/utils/format'
+    import { thousands, day, yearMonth, month, number, postData } from '@/utils/format'
 
     const fields: CardField[] = []
 
@@ -49,6 +49,7 @@ export const useCard = (api: string, fields: Field[], title: string, unit: strin
                 <Card
                     title=""
                     unit=""
+                    icon="column"
                     md={12}
                     fields={fields}
                     request={fetchData}
@@ -117,6 +118,16 @@ export const useCard = (api: string, fields: Field[], title: string, unit: strin
                     } else {
                         //@ts-ignore
                         const index = path.parent.attributes.findIndex(item => item.name.name === 'unit')
+                        //@ts-ignore
+                        path.parent.attributes.splice(index, 1)
+                    }
+                }
+                if (path.node.name.name === 'icon') {
+                    if (icon) {
+                        path.node.value = t.stringLiteral(icon)
+                    } else {
+                        //@ts-ignore
+                        const index = path.parent.attributes.findIndex(item => item.name.name === 'icon')
                         //@ts-ignore
                         path.parent.attributes.splice(index, 1)
                     }
