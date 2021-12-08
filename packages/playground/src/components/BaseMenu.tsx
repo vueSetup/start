@@ -31,7 +31,7 @@ const BaseMenu = defineComponent({
                     }))
 
                     Object.entries(schema.paths).map(([path, item]) => {
-                        item.get.tags.map((tag) => {
+                        item.get?.tags.map((tag) => {
                             menus
                                 .find((menu) => menu.title === tag)
                                 ?.children.push({

@@ -137,7 +137,7 @@ export default defineComponent({
 
         const generateBasicColumns = () => {
             Object.entries(schema.paths).forEach(([pathKey, path]) => {
-                if (path.get.operationId === props.operationId) {
+                if (path.get?.operationId === props.operationId) {
                     state.api = pathKey
                     // @ts-ignore
                     const name = path.get.responses['200'].schema.originalRef
