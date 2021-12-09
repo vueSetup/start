@@ -89,25 +89,6 @@ const columns = [
             />
         )
     }
-    // {
-    //     dataIndex: 'layout',
-    //     title: '响应性',
-    //     customRender: ({ text, record, index, column }) => (
-    //         <Select
-    //             style={{ width: '120px' }}
-    //             v-model={[record.layout, 'value']}
-    //             onChange={(value, option) => {
-    //                 if (!value || value === 'display') {
-    //                     delete record.layout
-    //                 }
-    //             }}
-    //         >
-    //             <Option value='display'>显示</Option>
-    //             <Option value='horizontal'>横向显示</Option>
-    //             <Option value='vertical'>纵向显示</Option>
-    //         </Select>
-    //     )
-    // }
 ]
 
 export default defineComponent({
@@ -237,9 +218,6 @@ export default defineComponent({
         return (
             <>
                 <Tabs>
-                    <TabPane key="card" tab="指标卡">
-                        <StatisticCard api={this.api} fields={this.fields} onChange={this.handleSubmit} />
-                    </TabPane>
                     <TabPane key="table" tab="表格">
                         {JSON.stringify(this.data)}
                         <Card
@@ -273,6 +251,9 @@ export default defineComponent({
                     </TabPane>
                     <TabPane key="stackColumn" tab="层叠柱状图">
                         <StackColumn fieldOptions={this.options} onSubmit={this.handleSubmit} />
+                    </TabPane>
+                    <TabPane key="card" tab="指标卡">
+                        <StatisticCard api={this.api} fields={this.fields} onSubmit={this.handleSubmit} />
                     </TabPane>
                 </Tabs>
                 <MonacoEditor value={this.code} />

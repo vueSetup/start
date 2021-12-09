@@ -83,11 +83,13 @@ export default defineComponent({
             default: '/api'
         },
         fields: Array as PropType<Field[]>,
-        onChange: Function as PropType<(code: string) => void>
+        onSubmit: Function as PropType<(code: string) => void>
     },
     setup(props, { emit }) {
 
-        const code = ref<string>('')
+        const state = reactive({
+            code: ''
+        })
 
         const modelRef = reactive({
             title: '',
@@ -113,10 +115,14 @@ export default defineComponent({
         watchEffect(() => {
             const data = modelRef.data.filter((item) => item.show).map((item) => omit(item, 'show'))
             const { code } = useCard(props.api, data, modelRef.title, modelRef.unit, modelRef.icon, modelRef.md)
-            emit('change', code)
+            state.code = code.value
         })
 
-        return { modelRef, validateInfos, resetFields }
+        const onSubmit = () => {
+            emit('submit', state.code)
+        }
+
+        return { modelRef, validateInfos, resetFields, onSubmit }
     },
     render() {
         return (
@@ -148,6 +154,7 @@ export default defineComponent({
                     </FormItem>
 
                     <FormItem wrapperCol={{ span: 10, offset: 4 }}>
+                        <Button type="primary" onClick={this.onSubmit}>保存</Button>
                         <Button onClick={this.resetFields} style={{ marginLeft: '10px' }}>重置</Button>
                     </FormItem>
                 </Form>
