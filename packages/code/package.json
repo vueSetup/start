@@ -2,10 +2,6 @@
   "name": "@runes/code",
   "version": "1.0.0",
   "main": "src/index.ts",
-  "type": "module",
-  "scripts": {
-    "babel": "node ./src/index.js"
-  },
   "dependencies": {},
   "devDependencies": {
     "@types/babel__generator": "^7.6.3",
