@@ -12,7 +12,7 @@
     "start": "yarn workspace playground start"
   },
   "dependencies": {
-    "vue": "^3.2.26"
+    "vue": "^3.2.27"
   },
   "devDependencies": {
     "commitizen": "^4.2.4",
